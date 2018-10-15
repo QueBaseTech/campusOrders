@@ -57,13 +57,13 @@ public class buyer_home extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    Toast.makeText(context, "You selected: " + R.string.app_name, Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_transactions:
-                    mTextMessage.setText(R.string.title_transactions);
+                    Toast.makeText(context, "You selected: " + R.string.title_transactions, Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_settings:
-                    mTextMessage.setText(R.string.title_settings);
+                    Toast.makeText(context, "You selected: " + R.string.title_settings, Toast.LENGTH_SHORT).show();
                     return true;
             }
             return false;

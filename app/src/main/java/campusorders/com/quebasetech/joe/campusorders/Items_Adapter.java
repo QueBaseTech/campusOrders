@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Items_Adapter extends ArrayAdapter<String> {
 
@@ -33,6 +35,14 @@ public class Items_Adapter extends ArrayAdapter<String> {
         itemName.setText(items[position]);
         itemPrice.setText(prices[position].toString());
         itemSeller.setText(sellers[position]);
+        Button order = (Button) rowView.findViewById(R.id.orderBtn);
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                buyer_home.makeOrder(v.getId());
+                Toast.makeText(context, "You selected: " + v.getId(), Toast.LENGTH_SHORT).show();
+            }
+        });
         return rowView;
     }
 }
