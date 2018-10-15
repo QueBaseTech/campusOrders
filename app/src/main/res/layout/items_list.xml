@@ -42,7 +42,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="8dp"
-            android:text="Price: Ksh "
+            android:text="@string/price_ksh"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
@@ -83,7 +83,7 @@
             android:layout_height="35dp"
             android:layout_marginBottom="8dp"
             android:background="@android:color/holo_blue_dark"
-            android:text="ORDER"
+            android:text="@string/order"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

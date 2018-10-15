@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/black"
             android:padding="5dp"
-            android:text="Order item from list below"
+            android:text="@string/order_list_title"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 

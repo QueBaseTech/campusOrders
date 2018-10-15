@@ -1,6 +1,7 @@
 package campusorders.com.quebasetech.joe.campusorders;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -57,13 +58,16 @@ public class buyer_home extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Toast.makeText(context, "You selected: " + R.string.app_name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "You selected: Campus orders home", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_transactions:
-                    Toast.makeText(context, "You selected: " + R.string.title_transactions, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "You selected: Transactions" , Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_settings:
-                    Toast.makeText(context, "You selected: " + R.string.title_settings, Toast.LENGTH_SHORT).show();
+                    // Launch settings ~ user prefs and a/c
+                    Intent settings = new Intent(getApplicationContext(), SettingsActivity.class);
+                    startActivity(settings);
+                    Toast.makeText(context, "You selected: settings" , Toast.LENGTH_SHORT).show();
                     return true;
             }
             return false;
