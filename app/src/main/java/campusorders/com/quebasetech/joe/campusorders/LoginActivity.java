@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void showHome(View view) {
         // TODO:: remove this and add actual login auth
-        Intent home = new Intent(getApplicationContext(), buyer_home.class);
+        Intent home = new Intent(getApplicationContext(), BuyerHome.class);
         startActivity(home);
     }
 }

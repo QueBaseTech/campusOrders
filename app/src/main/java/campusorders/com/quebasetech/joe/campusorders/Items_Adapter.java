@@ -36,13 +36,13 @@ public class Items_Adapter extends ArrayAdapter<String> {
         itemPrice.setText(prices[position].toString());
         itemSeller.setText(sellers[position]);
         Button order = (Button) rowView.findViewById(R.id.orderBtn);
-        order.setOnClickListener(new View.OnClickListener() {
+       /* order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                buyer_home.makeOrder(v.getId());
                 Toast.makeText(context, "You selected: " + v.getId(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
         return rowView;
     }
 }
