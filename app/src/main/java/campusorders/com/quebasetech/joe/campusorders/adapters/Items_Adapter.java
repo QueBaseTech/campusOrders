@@ -1,4 +1,4 @@
-package campusorders.com.quebasetech.joe.campusorders;
+package campusorders.com.quebasetech.joe.campusorders.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import campusorders.com.quebasetech.joe.campusorders.R;
 
 public class Items_Adapter extends ArrayAdapter<String> {
 

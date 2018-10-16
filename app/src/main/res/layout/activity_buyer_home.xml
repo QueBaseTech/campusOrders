@@ -6,38 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BuyerHome">
-    
-
-    <!--<LinearLayout
-        android:id="@+id/order_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/black"
-            android:padding="5dp"
-            android:text="@string/order_list_title"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-
-        <ListView
-            android:id="@+id/items_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>-->
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="0dp"
-        android:layout_height="450dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
