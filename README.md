@@ -9,9 +9,9 @@
  - [ ] Build UI for all the screens
     - [x] Buyer Items
     - [ ] Buyer transactions page
-    - [ ] User settings page
+    - [x] User settings page
     - [ ] Seller `Add Item` items 
-    - [ ] Seller orders: `new`, `complete`, `cancelled` and `Rejected` 
+    - [x] Seller orders: `new`, `complete`, `cancelled` and `Rejected` 
     - [ ] Place order Dialog
     - [x] Login & Register page
     - [ ] Account settings page

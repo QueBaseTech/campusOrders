@@ -8,10 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import campusorders.com.quebasetech.joe.campusorders.R;
 
@@ -39,7 +37,7 @@ public class UserSettings extends Fragment {
     private void initMemory() {
         profileSWitch = (Switch) view.findViewById(R.id.profile_switch);
         buyerTextView = (TextView) view.findViewById(R.id.buyer_label);
-        sellerTextView = (TextView) view.findViewById(R.id.seller_label);
+        sellerTextView = (TextView) view.findViewById(R.id.buyer_label);
 
         //Fetch shared prefs and set isBuyer
         isBuyer = true;
@@ -47,13 +45,7 @@ public class UserSettings extends Fragment {
     }
 
     private void setupEvents() {
-        profileSWitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isBuyer = !isChecked;
-                switchProfile();
-            }
-        });
+        
     }
 
     protected void switchProfile() {
