@@ -23,7 +23,7 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/order_location"
+            android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/order_qty_label"
+            android:id="@+id/price_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -44,16 +44,16 @@
             android:layout_marginTop="8dp"
             android:text="Qty:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_location" />
+            app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
         <TextView
-            android:id="@+id/order_qty"
+            android:id="@+id/item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginStart="32dp"
             android:text="2"
-            app:layout_constraintBaseline_toBaselineOf="@+id/order_qty_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/price_label"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -65,7 +65,7 @@
             android:layout_marginTop="8dp"
             android:text="Buyer: "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_qty_label" />
+            app:layout_constraintTop_toBottomOf="@+id/price_label" />
 
         <TextView
             android:id="@+id/buyer_name"
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginBottom="4dp"
-            android:background="#cc1100"
+            android:background="@android:color/holo_red_dark"
             android:text="Reject"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -108,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kshs: "
-            app:layout_constraintBaseline_toBaselineOf="@+id/order_qty"
+            app:layout_constraintBaseline_toBaselineOf="@+id/item_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.23"
             app:layout_constraintStart_toStartOf="parent" />

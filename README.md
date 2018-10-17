@@ -10,7 +10,7 @@
     - [x] Buyer Items
     - [ ] Buyer transactions page
     - [x] User settings page
-    - [ ] Seller `Add Item` items 
+    - [x] Seller `Add Item` items 
     - [x] Seller orders: `new`, `complete`, `cancelled` and `Rejected` 
     - [ ] Place order Dialog
     - [x] Login & Register page

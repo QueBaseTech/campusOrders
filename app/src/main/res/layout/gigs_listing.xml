@@ -56,38 +56,45 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/price_label"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/buyer_label"
+        <Button
+            android:id="@+id/edit_gig_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="8dp"
-            android:text="Seller: "
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/price_label" />
-
-        <TextView
-            android:id="@+id/seller_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="56dp"
-            android:layout_marginStart="56dp"
-            android:text="Jane Doe"
-            app:layout_constraintBaseline_toBaselineOf="@+id/buyer_label"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="92dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="92dp"
+            android:background="@android:color/holo_green_light"
+            android:text="Edit"
+            android:textAllCaps="false"
+            app:layout_constraintBaseline_toBaselineOf="@+id/delete_gig_btn"
+            app:layout_constraintEnd_toStartOf="@+id/delete_gig_btn"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/orderBtn"
+            android:id="@+id/delete_gig_btn"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/holo_blue_dark"
-            android:text="@string/order"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/holo_red_dark"
+            android:text="Delete"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.862"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/selling_status_switch"
+            app:layout_constraintVertical_bias="0.629" />
+
+        <Switch
+            android:id="@+id/selling_status_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Selling  "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

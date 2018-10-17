@@ -29,8 +29,8 @@ public class Items_Adapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.items_list, parent, false);
-        TextView itemName = (TextView) rowView.findViewById(R.id.order_location);
-        TextView itemPrice = (TextView) rowView.findViewById(R.id.order_qty);
+        TextView itemName = (TextView) rowView.findViewById(R.id.item_name);
+        TextView itemPrice = (TextView) rowView.findViewById(R.id.item_price);
         TextView itemSeller = (TextView) rowView.findViewById(R.id.seller_value);
         itemName.setText(items[position]);
         itemPrice.setText(prices[position].toString());
