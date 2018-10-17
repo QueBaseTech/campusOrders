@@ -8,7 +8,7 @@
     android:paddingRight="10dp">
 
     <TextView
-        android:id="@+id/currency_symbol"
+        android:id="@+id/seller_items_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -28,7 +28,7 @@
         android:layout_marginTop="8dp"
         android:text="Switch profile between buyer and seller"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currency_symbol" />
+        app:layout_constraintTop_toBottomOf="@+id/seller_items_title" />
 
     <Switch
         android:id="@+id/profile_switch"
@@ -38,6 +38,6 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currency_symbol" />
+        app:layout_constraintTop_toBottomOf="@+id/seller_items_title" />
 
 </android.support.constraint.ConstraintLayout>
