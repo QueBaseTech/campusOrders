@@ -58,7 +58,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="50dp"
         android:background="@android:color/holo_blue_dark"
-        android:onClick="showHome"
+        android:onClick="loginUser"
         android:text="@string/login"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
