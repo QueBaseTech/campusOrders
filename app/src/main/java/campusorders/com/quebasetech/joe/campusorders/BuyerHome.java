@@ -30,6 +30,9 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import campusorders.com.quebasetech.joe.campusorders.fragments.BuyerDashboard;
 import campusorders.com.quebasetech.joe.campusorders.fragments.SellerItems;
 import campusorders.com.quebasetech.joe.campusorders.fragments.SellerOrders;
@@ -42,6 +45,8 @@ public class BuyerHome extends AppCompatActivity {
     private SharedPreferences.Editor mEditor;
     private boolean isBuyer;
     private Context context;
+    private FirebaseUser mAuthUser;
+    private FirebaseAuth  firebaseAuth;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -55,6 +60,9 @@ public class BuyerHome extends AppCompatActivity {
         mEditor = mPreferences.edit();
         isBuyer = mPreferences.getBoolean(Settings_Profile.IS_BUYER, true);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        mAuthUser = firebaseAuth.getCurrentUser();
+
         if (isBuyer) {
             // Load default user fragment
             loadFragment(new BuyerDashboard());
@@ -62,14 +70,15 @@ public class BuyerHome extends AppCompatActivity {
             // Load default user fragment
             loadFragment(new SellerOrders());
         }
-
         setupBottomNavigation();
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.option_settings, menu);
+        MenuItem user = menu.findItem(R.id.username_menu_item);
+        Toast.makeText(BuyerHome.this, mAuthUser.getEmail(), Toast.LENGTH_LONG).show();
+        user.setTitle("Logged in as: "+mAuthUser.getEmail());
         return true;
     }
 
@@ -79,6 +88,11 @@ public class BuyerHome extends AppCompatActivity {
             case R.id.current_profile:
                 Intent settings = new Intent(context, Settings_Profile.class);
                 startActivity(settings);
+                return true;
+            case R.id.logout_button:
+                firebaseAuth.signOut();
+                finish();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

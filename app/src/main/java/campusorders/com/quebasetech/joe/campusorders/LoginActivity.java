@@ -24,15 +24,16 @@
 
 package campusorders.com.quebasetech.joe.campusorders;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +46,9 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText mEmail;
     private EditText mPassword;
+    private ProgressDialog progressDialog;
     private Button loginBtn, registerButton;
+    private TextView errorView;
     private static final String TAG = "LoginActivity";
 
     @Override
@@ -57,22 +60,27 @@ public class LoginActivity extends AppCompatActivity {
         mEmail = (EditText) findViewById(R.id.email_field);
         mPassword = (EditText) findViewById(R.id.password_field);
         mAuth = FirebaseAuth.getInstance();
+        errorView = (TextView) findViewById(R.id.message_view);
+        progressDialog = new ProgressDialog(LoginActivity.this);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        if (currentUser != null) updateUI(currentUser);
     }
 
     public void registerUser(View view) {
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         if(email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "All fields are required.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "All fields are required.", Toast.LENGTH_SHORT).show();
+            errorView.setText("All fields are required");
             return;
         }
+        progressDialog.setMessage("Registering, Please Wait...");
+        progressDialog.show();
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -86,9 +94,11 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Registration failed."+ task.getException().getMessage(), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getApplicationContext(), "Registration failed."+ task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            errorView.setText(task.getException().getMessage());
                             updateUI(null);
                         }
+                        progressDialog.dismiss();
                     }
                 });
     }
@@ -98,11 +108,13 @@ public class LoginActivity extends AppCompatActivity {
         String email = mEmail .getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         if(email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "All fields are required.",
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "All fields are required.", Toast.LENGTH_SHORT).show();
+            errorView.setText("All fields are required");
             return;
         }
 
+        progressDialog.setMessage("Logging you in, Please Wait...");
+        progressDialog.show();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -110,15 +122,15 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "Authentication Successful.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginActivity.this, "Authentication Successful.", Toast.LENGTH_SHORT).show();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            errorView.setText(task.getException().getMessage());
                             updateUI(null);
                         }
-
-                        // ...
+                        progressDialog.dismiss();
                     }
                 });
     }
@@ -127,14 +139,15 @@ public class LoginActivity extends AppCompatActivity {
         // TODO:: remove this and add actual login auth
         Intent home = new Intent(getApplicationContext(), BuyerHome.class);
         startActivity(home);
+        finish();
     }
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             Toast.makeText(getApplicationContext(), "Logged ins as :: "+user.getEmail(), Toast.LENGTH_SHORT).show();
-//            showHome();
+            showHome();
         } else {
-            Toast.makeText(getApplicationContext(), "No user", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Can't login right now, ensure you have an internet connection", Toast.LENGTH_LONG).show();
         }
     }
 }
