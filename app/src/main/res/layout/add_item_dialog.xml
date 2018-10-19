@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/item_unit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -76,10 +76,10 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/item_unit" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/item_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -103,7 +103,7 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toEndOf="@+id/add_item_btn"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/item_price" />
 
     <Button
         android:id="@+id/add_item_btn"
@@ -117,5 +117,5 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/item_price" />
 </android.support.constraint.ConstraintLayout>

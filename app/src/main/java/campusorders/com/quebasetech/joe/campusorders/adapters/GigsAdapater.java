@@ -29,7 +29,7 @@ public class GigsAdapater extends ArrayAdapter<String> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.gigs_listing, parent, false);
         TextView itemName = (TextView) view.findViewById(R.id.item_name);
-        TextView itemPrice = (TextView) view.findViewById(R.id.item_price);
+        TextView itemPrice = (TextView) view.findViewById(R.id.item_unit);
         itemName.setText(items[position]);
         itemPrice.setText(""+prices[position]);
         return view;

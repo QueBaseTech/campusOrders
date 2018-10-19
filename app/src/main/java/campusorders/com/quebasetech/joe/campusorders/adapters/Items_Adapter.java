@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +32,7 @@ public class Items_Adapter extends ArrayAdapter<String> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.items_list, parent, false);
         final TextView itemName = (TextView) rowView.findViewById(R.id.item_name);
-        TextView itemPrice = (TextView) rowView.findViewById(R.id.item_price);
+        TextView itemPrice = (TextView) rowView.findViewById(R.id.item_unit);
         TextView itemSeller = (TextView) rowView.findViewById(R.id.seller_value);
         itemName.setText(items[position]);
         itemPrice.setText(prices[position].toString());

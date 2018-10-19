@@ -12,13 +12,13 @@
     - [x] User settings page
     - [x] Seller `Add Item` items 
     - [x] Seller orders: `new`, `complete`, `cancelled` and `Rejected` 
-    - [ ] Place order Dialog
+    - [x] Place order Dialog
     - [x] Login & Register page
     - [ ] Account settings page
  - [x] Connect to Firebase auth
  - [x] Configure app to connect to Firebase 
- - [ ] Add gigs
- - [ ] Implement models for entities
+ - [x] Add gigs
+ - [x] Implement models for entities
  - [ ] Implement place order
  - [ ] Implement Push notifications and service to fetch new orders and new items 
  - [ ] Add styling

@@ -18,18 +18,22 @@ package campusorders.com.quebasetech.joe.campusorders.model;
 public class Gig {
     private String id;
     private String name;
+    private String unit;
+    private boolean isSelling;
     private long image;
     private int price;
     private String sellerId;
 
     public Gig() { }
 
-    public Gig(String id, String name, long image, int price, String sellerId) {
+    public Gig(String id, String name, long image, int price, String sellerId, boolean isSelling, String unit) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.price = price;
         this.sellerId = sellerId;
+        this.isSelling = isSelling;
+        this.unit = unit;
     }
 
     public String getId() {
@@ -70,5 +74,21 @@ public class Gig {
 
     public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public boolean isSelling() {
+        return isSelling;
+    }
+
+    public void setSelling(boolean selling) {
+        isSelling = selling;
     }
 }
