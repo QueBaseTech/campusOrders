@@ -41,6 +41,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         registerButton = (Button) findViewById(R.id.login_button);
         mEmail = (EditText) findViewById(R.id.email_field);
         mPassword = (EditText) findViewById(R.id.password_field);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true); // Enable offline capability
         mAuth = FirebaseAuth.getInstance();
         errorView = (TextView) findViewById(R.id.message_view);
         progressDialog = new ProgressDialog(LoginActivity.this);
