@@ -57,15 +57,15 @@ public class SellerItems extends Fragment {
         super.onStart();
         final String currentUser = utils.getCurrentUserEmail();
         // TODO:: Add query filter here to only fetch current user items
-//        Query gigs = gigsRef.orderByChild("seller").equalTo(currentUser);
-        gigsRef.addValueEventListener(new ValueEventListener() {
+        Query gigs = gigsRef.orderByChild("sellerId").equalTo(currentUser);
+        gigs.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mGigList.clear();
                 for(DataSnapshot gigSnapShot: dataSnapshot.getChildren()){
                     Gig gig = gigSnapShot.getValue(Gig.class);
-                    if(currentUser.equals(gig.getSellerId()))
-                        mGigList.add(gig);
+//                    if(currentUser.equals(gig.getSellerId()))
+                    mGigList.add(gig);
                 }
                 //Display items
                 ListView gigsList = (ListView) sellerGigsView.findViewById(R.id.items_for_sale);
