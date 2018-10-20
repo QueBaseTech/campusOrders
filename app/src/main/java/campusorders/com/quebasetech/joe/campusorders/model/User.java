@@ -18,16 +18,26 @@ package campusorders.com.quebasetech.joe.campusorders.model;
 public class User {
     private String id;
     private String email;
-    private long phoneNumber;
+    private String name;
+    private String phoneNumber;
     private String location;
 
     public User() { }
 
-    public User(String id, String email, long phoneNumber, String location) {
+    public User(String id, String name, String email, String phoneNumber, String location) {
         this.id = id;
         this.email = email;
+        this.name = name;
         this.phoneNumber = phoneNumber;
         this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getId() {
@@ -46,11 +56,11 @@ public class User {
         this.email = email;
     }
 
-    public long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
