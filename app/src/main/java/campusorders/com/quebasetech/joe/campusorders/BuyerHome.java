@@ -39,6 +39,7 @@ import campusorders.com.quebasetech.joe.campusorders.fragments.SellerOrders;
 import campusorders.com.quebasetech.joe.campusorders.fragments.SellerStats;
 import campusorders.com.quebasetech.joe.campusorders.fragments.Transactions;
 import campusorders.com.quebasetech.joe.campusorders.fragments.UserSettings;
+import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
 public class BuyerHome extends AppCompatActivity {
     private SharedPreferences mPreferences;
@@ -60,6 +61,7 @@ public class BuyerHome extends AppCompatActivity {
         mEditor = mPreferences.edit();
         isBuyer = mPreferences.getBoolean(Settings_Profile.IS_BUYER, true);
 
+        Toast.makeText(this, getSharedPreferences(utils.CURRENT_USER, MODE_PRIVATE).getString(utils.USER_NAME, "None"), Toast.LENGTH_SHORT).show();
         firebaseAuth = FirebaseAuth.getInstance();
         mAuthUser = firebaseAuth.getCurrentUser();
 
@@ -77,7 +79,7 @@ public class BuyerHome extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.option_settings, menu);
         MenuItem user = menu.findItem(R.id.username_menu_item);
-        Toast.makeText(BuyerHome.this, mAuthUser.getEmail(), Toast.LENGTH_LONG).show();
+//        Toast.makeText(BuyerHome.this, mAuthUser.getEmail(), Toast.LENGTH_LONG).show();
         user.setTitle("Logged in as: "+mAuthUser.getEmail());
         return true;
     }
@@ -91,6 +93,8 @@ public class BuyerHome extends AppCompatActivity {
                 return true;
             case R.id.logout_button:
                 firebaseAuth.signOut();
+                // Clear user prefs
+                getSharedPreferences(utils.CURRENT_USER, MODE_PRIVATE).edit().clear().commit();
                 finish();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 return true;

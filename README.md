@@ -14,12 +14,13 @@
     - [x] Seller orders: `new`, `complete`, `cancelled` and `Rejected` 
     - [x] Place order Dialog
     - [x] Login & Register page
-    - [ ] Account settings page
+    - [x] Account settings page
  - [x] Connect to Firebase auth
  - [x] Configure app to connect to Firebase 
  - [x] Add gigs
  - [x] Implement models for entities
  - [ ] Implement place order
+ - [ ] A/C setup and prefs control on login and logout, make email unique field on database rules
  - [ ] Implement Push notifications and service to fetch new orders and new items 
  - [ ] Add styling
  - [ ] Add App Icon

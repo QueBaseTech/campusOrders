@@ -17,6 +17,8 @@ package campusorders.com.quebasetech.joe.campusorders;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,19 +30,22 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import campusorders.com.quebasetech.joe.campusorders.model.User;
 import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
+import static campusorders.com.quebasetech.joe.campusorders.utils.utils.CURRENT_USER;
+import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_ID;
+import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_LOCATION;
+import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_NAME;
+import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_PHONE;
+
 public class AccountSetup extends AppCompatActivity {
     private Button mCompleteButton;
     private EditText mName, mPhoneNumber, mHostel, mRoom;
     private CheckBox mContestCheckbox;
-    private FirebaseUser currentUser;
     DatabaseReference usersRef;
     Context context;
     ProgressDialog progressDialog;
@@ -50,9 +55,15 @@ public class AccountSetup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_setup);
 
-        context = this;
-        initMemory();
-        setupEvents();
+        Bundle extra = getIntent().getExtras();
+        if(extra.getString("FROM").equals("REGISTER")) {
+            // No user record in database
+            //allow setup to continue
+            context = this;
+            initMemory();
+            setupEvents();
+            /* On set-a/c completion, save user to prefs */
+        }
     }
 
     private void initMemory() {
@@ -63,8 +74,6 @@ public class AccountSetup extends AppCompatActivity {
         mRoom = (EditText) findViewById(R.id.location_room);
         mContestCheckbox = (CheckBox) findViewById(R.id.consent_check);
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
         usersRef = FirebaseDatabase.getInstance().getReference("users");
         progressDialog = new ProgressDialog(context);
     }
@@ -102,14 +111,14 @@ public class AccountSetup extends AppCompatActivity {
                 }
 //                String location = String.join(" ", hostel, room);
                 String location = hostel + " " + room;
-                User user = new User(id, name, email, phoneNumber, location);
+                final User user = new User(id, name, email, phoneNumber, location);
                 usersRef.child(user.getId())
                         .setValue(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 progressDialog.dismiss();
-                                Toast.makeText(context, "Successfully added", Toast.LENGTH_SHORT).show();
+                                addUserToPrefs(user);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -121,5 +130,20 @@ public class AccountSetup extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    private void addUserToPrefs(User user) {
+        SharedPreferences userPrefs = getSharedPreferences(CURRENT_USER, MODE_PRIVATE);
+        SharedPreferences.Editor editor = userPrefs.edit();
+        // Get their profile
+        editor.clear(); // Remove any stored prefs
+        editor.putString(USER_ID, user.getId());
+        editor.putString(USER_NAME, user.getName());
+        editor.putString(USER_LOCATION, user.getLocation());
+        editor.putString(USER_PHONE, user.getPhoneNumber());
+        editor.commit();// Save all
+        Intent home = new Intent(getApplicationContext(), BuyerHome.class);
+        startActivity(home);
+        finish();
     }
 }

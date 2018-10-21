@@ -26,7 +26,10 @@
             android:name=".Settings_Profile"
             android:label="Settings"
             android:parentActivityName=".BuyerHome" />
-        <activity android:name=".AccountSetup"></activity>
+        <activity
+            android:name=".AccountSetup"
+            android:label="Account Setup"
+            android:parentActivityName=".LoginActivity"/>
     </application>
 
 </manifest>
