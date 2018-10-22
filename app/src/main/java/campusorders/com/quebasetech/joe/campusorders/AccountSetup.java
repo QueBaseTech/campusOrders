@@ -56,14 +56,12 @@ public class AccountSetup extends AppCompatActivity {
         setContentView(R.layout.activity_account_setup);
 
         Bundle extra = getIntent().getExtras();
-        if(extra.getString("FROM").equals("REGISTER")) {
-            // No user record in database
-            //allow setup to continue
-            context = this;
-            initMemory();
-            setupEvents();
-            /* On set-a/c completion, save user to prefs */
-        }
+        // No user record in database
+        //allow setup to continue
+        context = this;
+        initMemory();
+        setupEvents();
+        /* On set-a/c completion, save user to prefs */
     }
 
     private void initMemory() {
