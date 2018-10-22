@@ -12,47 +12,25 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import campusorders.com.quebasetech.joe.campusorders.adapters.Items_Adapter;
 import campusorders.com.quebasetech.joe.campusorders.R;
+import campusorders.com.quebasetech.joe.campusorders.model.Gig;
 
 public class BuyerDashboard extends Fragment {
     private ListView itemsList;
-    private String[] items = {
-            "Smokies",
-            "Smokies & eggs",
-            "Eggs",
-            "Eggs",
-            "Apples",
-            "Apples",
-            "Groceries",
-            "Milk",
-            "Milk",
-    };
-    private Double[] prices = {
-            22.0,
-            40.0,
-            40.0,
-            20.0,
-            25.0,
-            25.0,
-            75.0,
-            35.0,
-            35.0,
-    };
-    private String[] sellers = {
-            "Jane Doe",
-            "Awesome Dude",
-            "Awesome Dude",
-            "John Doe",
-            "Joe Nyugoh",
-            "Joe Nyugoh",
-            "Fisher Maxwell",
-            "Milly Bett",
-            "Milly Bett",
-    };
-
-
+    private DatabaseReference databaseReference;
     private Context context;
+    private List<Gig> gigsList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,14 +43,23 @@ public class BuyerDashboard extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.buyer_dashboard, container, false);
         itemsList = (ListView) view.findViewById(R.id.items_list_view);
-        Items_Adapter adapter = new Items_Adapter(context, items, prices, sellers);
-        itemsList.setAdapter(adapter);
-
-        itemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gigsList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference gigsRef = databaseReference.child("gigs");
+        Query sellingItems = gigsRef.orderByChild("selling").equalTo(true);
+        sellingItems.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO:: Launch dialog for each
-                Toast.makeText(context, "View selected: " + view.getId(), Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot gig: dataSnapshot.getChildren()) {
+                    gigsList.add(gig.getValue(Gig.class));
+                }
+                Items_Adapter adapter = new Items_Adapter(context, gigsList);
+                itemsList.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
         return view;

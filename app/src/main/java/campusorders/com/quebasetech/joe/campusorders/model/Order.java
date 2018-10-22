@@ -18,12 +18,12 @@ package campusorders.com.quebasetech.joe.campusorders.model;
 public class Order {
     private String gigId;
     private int qty; //Quantity
-    private int total;
+    private double total;
     private long orderTime; // Time order is made
     private long deliveryTime; // Time order is fulfilled
     private String location; //Where order is to be delivered
     private String client; // The user who made the order;
-    private enum orderStatus { NEW, PENDING, FULFILLED, REJECTED, CANCELLED };
+    public enum orderStatus { NEW, PENDING, FULFILLED, REJECTED, CANCELLED };
         /* ORDER STATUS
         *  NEW - not seen by the buyer
         *  PENDING - Seller has accepted to deliver
@@ -32,11 +32,13 @@ public class Order {
         *  CANCELLED - cancelled by the buyer
         * */
     private orderStatus status;
+    private String id;
 
     public Order() {
     }
 
-    public Order(String gigId, int qty, int total, long orderTime, long deliveryTime, String location, String client, orderStatus status) {
+    public Order(String id, String gigId, int qty, double total, long orderTime, long deliveryTime, String location, String client, orderStatus status) {
+        this.id = id;
         this.gigId = gigId;
         this.qty = qty;
         this.total = total;
@@ -45,6 +47,14 @@ public class Order {
         this.location = location;
         this.client = client;
         this.status = status;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getGigId() {
@@ -63,11 +73,11 @@ public class Order {
         this.qty = qty;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
