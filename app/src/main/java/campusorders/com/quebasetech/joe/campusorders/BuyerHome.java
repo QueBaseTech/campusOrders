@@ -78,16 +78,13 @@ public class BuyerHome extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.option_settings, menu);
-        MenuItem user = menu.findItem(R.id.username_menu_item);
-//        Toast.makeText(BuyerHome.this, mAuthUser.getEmail(), Toast.LENGTH_LONG).show();
-        user.setTitle("Logged in as: "+mAuthUser.getEmail());
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.current_profile:
+            case R.id.settings:
                 Intent settings = new Intent(context, Settings_Profile.class);
                 startActivity(settings);
                 return true;

@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import campusorders.com.quebasetech.joe.campusorders.R;
@@ -159,8 +160,7 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         }
         progressDialog.setMessage("Placing order...");
         progressDialog.show();
-        long now = Time.EPOCH_JULIAN_DAY; // TODO:: Add actual unitx timestamp
-        Toast.makeText(context, ""+now, Toast.LENGTH_SHORT).show();
+        long now = new Date().getTime();
         id = gigsDatabase.push().getKey();
         Order order = new Order(id, itemId.getText().toString(), amountQty, amountQty* Double.parseDouble(itemPrice.getText().toString()), now, now, location, clientId, Order.orderStatus.NEW);
         gigsDatabase.child(order.getId())

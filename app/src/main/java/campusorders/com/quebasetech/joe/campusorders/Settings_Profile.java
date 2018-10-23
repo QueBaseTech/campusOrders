@@ -1,6 +1,7 @@
 package campusorders.com.quebasetech.joe.campusorders;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class Settings_Profile extends AppCompatActivity {
 
     // Implement the switch in profile
     private void changeProfile() {
-
+        startActivity(new Intent(context, BuyerHome.class));
+        finish();
     }
 }

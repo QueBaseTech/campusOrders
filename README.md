@@ -27,4 +27,4 @@
  - [ ] Implement Push notifications and service to fetch new orders and new items 
  - [ ] Add styling :-1:
  - [ ] Add App Icon
- - [ ] Open all `TODO::` in the code and work them :pup:
+ - [ ] Open all `TODO::` in the code and work them :pup:g
