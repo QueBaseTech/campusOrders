@@ -166,7 +166,7 @@ public class GigsAdapter extends ArrayAdapter<Gig> {
             int price = Integer.parseInt(priceString);
             gig.setPrice(price);
         }
-        progressDialog.setMessage("Saving item");
+        progressDialog.setMessage("Saving item...");
         progressDialog.show();
         if(gig != null) {
             gigsDataBaseRef.child(gig.getId())

@@ -47,7 +47,7 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         this.context = context;
         this.gigsList = gigs;
         defaultUserLocation = context.getSharedPreferences(utils.CURRENT_USER, Context.MODE_PRIVATE).getString(utils.USER_LOCATION, "None");
-        clientId = context.getSharedPreferences(utils.CURRENT_USER, Context.MODE_PRIVATE).getString(utils.USER_ID, "None");
+        clientId = context.getSharedPreferences(utils.CURRENT_USER, Context.MODE_PRIVATE).getString(utils.USER_NAME, "None");
     }
 
     @Override
@@ -60,13 +60,12 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         final Gig gig = gigsList.get(position);
         itemName.setText(gig.getName());
         itemPrice.setText(""+gig.getPrice());
-        itemSeller.setText("Jane Doe");
+        itemSeller.setText("Jane Doe"); //TODO:: Include sellers
         final Button order = (Button) rowView.findViewById(R.id.orderBtn);
         order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 makeOrder(gig);
-                Toast.makeText(context, "You selected: " + itemName.getText(), Toast.LENGTH_SHORT).show();
             }
         });
         return rowView;
@@ -160,7 +159,7 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         }
         progressDialog.setMessage("Placing order...");
         progressDialog.show();
-        long now = Time.EPOCH_JULIAN_DAY;
+        long now = Time.EPOCH_JULIAN_DAY; // TODO:: Add actual unitx timestamp
         Toast.makeText(context, ""+now, Toast.LENGTH_SHORT).show();
         id = gigsDatabase.push().getKey();
         Order order = new Order(id, itemId.getText().toString(), amountQty, amountQty* Double.parseDouble(itemPrice.getText().toString()), now, now, location, clientId, Order.orderStatus.NEW);
@@ -170,6 +169,7 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
                     @Override
                     public void onSuccess(Void aVoid) {
                         progressDialog.dismiss();
+                        // TODO: Take user to transactions page
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
