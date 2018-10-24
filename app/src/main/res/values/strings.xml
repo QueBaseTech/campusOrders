@@ -12,10 +12,10 @@
     <string name="enter_your_password">Enter your password ...</string>
     <string name="enter_your_email">Enter your email ...</string>
     <string name="login">LOGIN</string>
-    <string name="or">or</string>
+    <string name="or">If you have not account, click Register</string>
     <string name="register">REGISTER</string>
-    <string name="campus_order_it">Campus Order It</string>
-    <string name="app_tag_line">Get it your comfort</string>
+    <string name="campus_order_it">Campus Order</string>
+    <string name="app_tag_line">Get it at your comfort</string>
     <string name="price_ksh">Price: Ksh</string>
     <string name="order">ORDER</string>
 
