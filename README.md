@@ -27,4 +27,7 @@
  - [ ] Implement Push notifications and service to fetch new orders and new items 
  - [ ] Add styling :-1:
  - [ ] Add App Icon
- - [ ] Open all `TODO::` in the code and work them :pup:g
+ - [ ] Open all `TODO::` in the code and work them
+ - [ ] Filter orders by categories: `new`, `complete`, `cancelled` and `Rejected`
+ - [ ] Show orders, pending, complete, rejected
+ - [ ] 

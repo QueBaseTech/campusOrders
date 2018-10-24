@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.List;
 
 import campusorders.com.quebasetech.joe.campusorders.R;
@@ -30,11 +31,15 @@ public class OrderAdapter extends ArrayAdapter<Order> {
     private  final Context context;
     private List<Order> orderList;
     private DatabaseReference ordersRef;
+    private HashMap clients;
+    private HashMap gigs;
 
-    public OrderAdapter(@NonNull Context context, List<Order> orders) {
+    public OrderAdapter(@NonNull Context context, List<Order> orders, HashMap clients, HashMap gigs) {
         super(context, R.layout.orders_list, orders);
         this.context = context;
         this.orderList = orders;
+        this.clients = clients;
+        this.gigs = gigs;
     }
 
     @Override
@@ -42,7 +47,8 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.orders_list,  parent, false);
         // Populate view with content
-        TextView location = (TextView) view.findViewById(R.id.item_name);
+        TextView itemName = (TextView) view.findViewById(R.id.order_item);
+        TextView location = (TextView) view.findViewById(R.id.order_location);
         TextView qtyLabel = (TextView) view.findViewById(R.id.item_unit);
         TextView price = (TextView) view.findViewById(R.id.order_value);
         TextView buyer = (TextView) view.findViewById(R.id.buyer_name);
@@ -51,11 +57,11 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         ordersRef = FirebaseDatabase.getInstance().getReference("orders");
 
         final Order order = orderList.get(position);
+        itemName.setText(gigs.get(order.getGigId()).toString());
         location.setText(order.getLocation());
         qtyLabel.setText(""+order.getQty());
         price.setText(""+order.getTotal());
-        buyer.setText(order.getClient());
-
+        buyer.setText(clients.get(order.getClient()).toString());
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

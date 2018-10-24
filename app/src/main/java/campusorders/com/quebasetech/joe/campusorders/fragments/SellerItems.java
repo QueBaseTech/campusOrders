@@ -1,5 +1,6 @@
 package campusorders.com.quebasetech.joe.campusorders.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,6 +32,13 @@ public class SellerItems extends Fragment {
     private List<Gig> mGigList;
     private DatabaseReference gigsRef;
     private View sellerGigsView = null;
+    Context context;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        context = getContext();
+    }
 
     @Nullable
     @Override
@@ -55,7 +63,7 @@ public class SellerItems extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        final String currentUser = utils.getCurrentUserEmail();
+        final String currentUser = context.getSharedPreferences(utils.CURRENT_USER, Context.MODE_PRIVATE).getString(utils.USER_ID, "");
         // TODO:: Add query filter here to only fetch current user items
         Query gigs = gigsRef.orderByChild("sellerId").equalTo(currentUser);
         gigs.addValueEventListener(new ValueEventListener() {
@@ -64,12 +72,11 @@ public class SellerItems extends Fragment {
                 mGigList.clear();
                 for(DataSnapshot gigSnapShot: dataSnapshot.getChildren()){
                     Gig gig = gigSnapShot.getValue(Gig.class);
-//                    if(currentUser.equals(gig.getSellerId()))
                     mGigList.add(gig);
                 }
                 //Display items
                 ListView gigsList = (ListView) sellerGigsView.findViewById(R.id.items_for_sale);
-                GigsAdapter gigsAdapter = new GigsAdapter(getContext(), mGigList);
+                GigsAdapter gigsAdapter = new GigsAdapter(context, mGigList);
                 gigsList.setAdapter(gigsAdapter);
                 // TODO:: Fix this code smell (- ^ -)
                 /*gigsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -3,6 +3,7 @@ package campusorders.com.quebasetech.joe.campusorders.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import campusorders.com.quebasetech.joe.campusorders.R;
 import campusorders.com.quebasetech.joe.campusorders.model.Gig;
+import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
 public class AddItemDialog extends DialogFragment {
     private EditText mName;
@@ -38,7 +40,7 @@ public class AddItemDialog extends DialogFragment {
         final View addDialog = inflater.inflate(R.layout.add_item_dialog, null);
 
         // Init view
-        mName = (EditText) addDialog.findViewById(R.id.item_name);
+        mName = (EditText) addDialog.findViewById(R.id.order_location);
         mUnitMeasure = (EditText) addDialog.findViewById(R.id.item_unit);
         mPrice = (EditText) addDialog.findViewById(R.id.item_price);
         gigsDatabase = FirebaseDatabase.getInstance().getReference("gigs");
@@ -110,7 +112,7 @@ public class AddItemDialog extends DialogFragment {
             return gig;
         }
         int price = Integer.parseInt(priceString);
-        String seller = getCurrentUserEmail();
+        String seller = getContext().getSharedPreferences(utils.CURRENT_USER, Context.MODE_PRIVATE).getString(utils.USER_ID, getCurrentUserEmail());
 
         if(seller.isEmpty())
             return gig;

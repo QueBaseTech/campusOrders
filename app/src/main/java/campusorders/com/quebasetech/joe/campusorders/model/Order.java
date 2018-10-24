@@ -23,6 +23,7 @@ public class Order {
     private long deliveryTime; // Time order is fulfilled
     private String location; //Where order is to be delivered
     private String client; // The user who made the order;
+    private String seller; // The user who is selling the item
     public enum orderStatus { NEW, PENDING, FULFILLED, REJECTED, CANCELLED };
         /* ORDER STATUS
         *  NEW - not seen by the buyer
@@ -37,7 +38,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(String id, String gigId, int qty, double total, long orderTime, long deliveryTime, String location, String client, orderStatus status) {
+    public Order(String id, String gigId, int qty, double total, long orderTime, long deliveryTime, String location, String client, String seller, orderStatus status) {
         this.id = id;
         this.gigId = gigId;
         this.qty = qty;
@@ -46,6 +47,7 @@ public class Order {
         this.deliveryTime = deliveryTime;
         this.location = location;
         this.client = client;
+        this.seller = seller;
         this.status = status;
     }
 
@@ -67,6 +69,14 @@ public class Order {
 
     public int getQty() {
         return qty;
+    }
+
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller;
     }
 
     public void setQty(int qty) {

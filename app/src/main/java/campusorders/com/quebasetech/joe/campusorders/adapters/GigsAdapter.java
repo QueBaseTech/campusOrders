@@ -25,8 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 
 import campusorders.com.quebasetech.joe.campusorders.R;
-import campusorders.com.quebasetech.joe.campusorders.dialogs.EditGigDialog;
-import campusorders.com.quebasetech.joe.campusorders.fragments.SellerItems;
 import campusorders.com.quebasetech.joe.campusorders.model.Gig;
 
 public class GigsAdapter extends ArrayAdapter<Gig> {
@@ -49,7 +47,7 @@ public class GigsAdapter extends ArrayAdapter<Gig> {
     public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.gigs_listing, parent, false);
-        TextView itemName = (TextView) view.findViewById(R.id.item_name);
+        TextView itemName = (TextView) view.findViewById(R.id.order_location);
         TextView itemPrice = (TextView) view.findViewById(R.id.item_unit);
         TextView id = (TextView) view.findViewById(R.id.gig_id);
         Button editBtn = (Button) view.findViewById(R.id.edit_gig_btn);
@@ -112,7 +110,7 @@ public class GigsAdapter extends ArrayAdapter<Gig> {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View editDialog = inflater.inflate(R.layout.edit_item_dialog, null);
         // Init view
-        mName = (EditText) editDialog.findViewById(R.id.item_name);
+        mName = (EditText) editDialog.findViewById(R.id.order_location);
         mUnitMeasure = (EditText) editDialog.findViewById(R.id.item_unit);
         mPrice = (EditText) editDialog.findViewById(R.id.item_price);
         final DatabaseReference gigsDatabase = FirebaseDatabase.getInstance().getReference("gigs");

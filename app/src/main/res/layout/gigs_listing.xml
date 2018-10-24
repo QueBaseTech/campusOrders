@@ -23,7 +23,7 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/item_name"
+            android:id="@+id/order_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -44,7 +44,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/price_ksh"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_name" />
+            app:layout_constraintTop_toBottomOf="@+id/order_location" />
 
         <TextView
             android:id="@+id/item_unit"

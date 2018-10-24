@@ -27,12 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -64,7 +59,7 @@ public class EditGigDialog extends DialogFragment {
         final View editDialog = inflater.inflate(R.layout.edit_item_dialog, null);
 
         // Init view
-        mName = (EditText) editDialog.findViewById(R.id.item_name);
+        mName = (EditText) editDialog.findViewById(R.id.order_location);
         mUnitMeasure = (EditText) editDialog.findViewById(R.id.item_unit);
         mPrice = (EditText) editDialog.findViewById(R.id.item_price);
         gigsDatabase = FirebaseDatabase.getInstance().getReference("gigs");

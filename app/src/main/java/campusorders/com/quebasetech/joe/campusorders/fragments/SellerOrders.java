@@ -18,21 +18,29 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import campusorders.com.quebasetech.joe.campusorders.R;
 import campusorders.com.quebasetech.joe.campusorders.adapters.OrderAdapter;
+import campusorders.com.quebasetech.joe.campusorders.model.Gig;
 import campusorders.com.quebasetech.joe.campusorders.model.Order;
+import campusorders.com.quebasetech.joe.campusorders.model.User;
+import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
 public class SellerOrders extends Fragment {
     BottomNavigationView topMenu;
     private ListView ordersList;
     private Context context;
     private DatabaseReference ordersRefs;
+    private DatabaseReference usersRefs;
     private List<Order> orders;
+    private HashMap clients;
+    private HashMap gigs;
 
 
     @Override
@@ -55,14 +63,47 @@ public class SellerOrders extends Fragment {
         });
 
         orders = new ArrayList<>();
+        clients = new HashMap();
+        gigs = new HashMap();
         ordersList = (ListView) view.findViewById(R.id.orders);
+        DatabaseReference gigsRef = FirebaseDatabase.getInstance().getReference("gigs");
         ordersRefs = FirebaseDatabase.getInstance().getReference("orders");
-        ordersRefs.addValueEventListener(new ValueEventListener() {
+        usersRefs = FirebaseDatabase.getInstance().getReference("users");
+        usersRefs.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot user: dataSnapshot.getChildren()) {
+                    User client = user.getValue(User.class);
+                    clients.put(client.getId(), client.getName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        gigsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot gig: dataSnapshot.getChildren()){
+                    Gig g = gig.getValue(Gig.class);
+                    gigs.put(g.getId(), g.getName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        Query yourOrders = ordersRefs.orderByChild("seller").equalTo(context.getSharedPreferences(utils.CURRENT_USER, Context.MODE_PRIVATE).getString(utils.USER_ID, ""));
+        yourOrders.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot orderSnapshot: dataSnapshot.getChildren()){
                     orders.add(orderSnapshot.getValue(Order.class));
-                    OrderAdapter adapter = new OrderAdapter(context, orders);
+                    OrderAdapter adapter = new OrderAdapter(context, orders, clients, gigs);
                     ordersList.setAdapter(adapter);
                 }
             }

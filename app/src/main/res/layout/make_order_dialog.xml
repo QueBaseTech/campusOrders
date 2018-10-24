@@ -159,4 +159,12 @@
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="188dp" />
+
+    <TextView
+        android:id="@+id/item_seller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="217dp" />
 </android.support.constraint.ConstraintLayout>

@@ -4,11 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.opengl.Visibility;
 import android.support.annotation.NonNull;
-import android.support.v4.util.TimeUtils;
-import android.text.format.Time;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,8 +19,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import campusorders.com.quebasetech.joe.campusorders.R;
@@ -36,32 +31,34 @@ import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 public class Items_Adapter extends ArrayAdapter<Gig> {
     private  final Context context;
     private final List<Gig> gigsList;
+    private final HashMap sellers;
     private EditText qty, newLocation;
-    private TextView itemName, itemPrice, totalPrice, itemId, defaultLocation;
+    private TextView itemName, itemPrice, totalPrice, itemId, itemSeller,  defaultLocation;
     private Button orderButton, cancelButton, changeLocation;
     private DatabaseReference gigsDatabase;
     private ProgressDialog progressDialog;
     private String defaultUserLocation, clientId;
 
-    public Items_Adapter(@NonNull Context context, List<Gig> gigs) {
+    public Items_Adapter(@NonNull Context context, List<Gig> gigs, HashMap sellers) {
         super(context, R.layout.items_list, gigs);
         this.context = context;
         this.gigsList = gigs;
+        this.sellers = sellers;
         defaultUserLocation = context.getSharedPreferences(utils.CURRENT_USER, Context.MODE_PRIVATE).getString(utils.USER_LOCATION, "None");
-        clientId = context.getSharedPreferences(utils.CURRENT_USER, Context.MODE_PRIVATE).getString(utils.USER_NAME, "None");
+        clientId = context.getSharedPreferences(utils.CURRENT_USER, Context.MODE_PRIVATE).getString(utils.USER_ID, "None");
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.items_list, parent, false);
-        final TextView itemName = (TextView) rowView.findViewById(R.id.item_name);
+        final TextView itemName = (TextView) rowView.findViewById(R.id.order_location);
         TextView itemPrice = (TextView) rowView.findViewById(R.id.item_unit);
         TextView itemSeller = (TextView) rowView.findViewById(R.id.seller_value);
         final Gig gig = gigsList.get(position);
         itemName.setText(gig.getName());
         itemPrice.setText(""+gig.getPrice());
-        itemSeller.setText("Jane Doe"); //TODO:: Include sellers
+        itemSeller.setText(sellers.get(gig.getSellerId()).toString());
         final Button order = (Button) rowView.findViewById(R.id.orderBtn);
         order.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +83,8 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         totalPrice.setText(""+gig.getPrice());
         itemId = (TextView) makeOrderDialog.findViewById(R.id.item_id);
         itemId.setText(gig.getId());
+        itemSeller = (TextView) makeOrderDialog.findViewById(R.id.item_seller);
+        itemSeller.setText(gig.getSellerId());
         defaultLocation = (TextView) makeOrderDialog.findViewById(R.id.location);
         defaultLocation.setText(defaultUserLocation);
         newLocation = (EditText) makeOrderDialog.findViewById(R.id.new_location);
@@ -162,7 +161,7 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         progressDialog.show();
         long now = new Date().getTime();
         id = gigsDatabase.push().getKey();
-        Order order = new Order(id, itemId.getText().toString(), amountQty, amountQty* Double.parseDouble(itemPrice.getText().toString()), now, now, location, clientId, Order.orderStatus.NEW);
+        Order order = new Order(id, itemId.getText().toString(), amountQty, amountQty* Double.parseDouble(itemPrice.getText().toString()), now, now, location, clientId, itemSeller.getText().toString(), Order.orderStatus.NEW);
         gigsDatabase.child(order.getId())
                 .setValue(order)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
