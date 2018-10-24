@@ -26,8 +26,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +35,7 @@ import campusorders.com.quebasetech.joe.campusorders.fragments.BuyerDashboard;
 import campusorders.com.quebasetech.joe.campusorders.fragments.SellerItems;
 import campusorders.com.quebasetech.joe.campusorders.fragments.SellerOrders;
 import campusorders.com.quebasetech.joe.campusorders.fragments.SellerStats;
-import campusorders.com.quebasetech.joe.campusorders.fragments.Transactions;
+import campusorders.com.quebasetech.joe.campusorders.fragments.BuyerTransactions;
 import campusorders.com.quebasetech.joe.campusorders.fragments.UserSettings;
 import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
@@ -123,7 +121,7 @@ public class BuyerHome extends AppCompatActivity {
                             fragment = new BuyerDashboard();
                             break;
                         case R.id.navigation_transactions:
-                            fragment = new Transactions();
+                            fragment = new BuyerTransactions();
                             break;
                         case R.id.navigation_settings:
                             fragment = new UserSettings();

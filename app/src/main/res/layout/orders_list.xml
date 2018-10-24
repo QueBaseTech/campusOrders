@@ -57,7 +57,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/buyer_label"
+            android:id="@+id/seller_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -74,7 +74,7 @@
             android:layout_marginLeft="56dp"
             android:layout_marginStart="56dp"
             android:text="Jane Doe"
-            app:layout_constraintBaseline_toBaselineOf="@+id/buyer_label"
+            app:layout_constraintBaseline_toBaselineOf="@+id/seller_label"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button

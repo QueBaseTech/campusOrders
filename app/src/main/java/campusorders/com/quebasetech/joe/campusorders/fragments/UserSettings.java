@@ -36,8 +36,8 @@ public class UserSettings extends Fragment {
 
     private void initMemory() {
         profileSWitch = (Switch) view.findViewById(R.id.profile_switch);
-        buyerTextView = (TextView) view.findViewById(R.id.buyer_label);
-        sellerTextView = (TextView) view.findViewById(R.id.buyer_label);
+        buyerTextView = (TextView) view.findViewById(R.id.seller_label);
+        sellerTextView = (TextView) view.findViewById(R.id.seller_label);
 
         //Fetch shared prefs and set isBuyer
         isBuyer = true;

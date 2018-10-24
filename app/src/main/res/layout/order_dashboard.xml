@@ -10,7 +10,7 @@
         android:id="@+id/orders_navigation"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_blue_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
