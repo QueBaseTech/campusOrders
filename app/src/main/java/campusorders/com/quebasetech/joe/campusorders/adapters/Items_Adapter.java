@@ -4,7 +4,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationMenu;
+import android.support.design.widget.BottomNavigationView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,7 +29,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import campusorders.com.quebasetech.joe.campusorders.BuyerHome;
 import campusorders.com.quebasetech.joe.campusorders.R;
+import campusorders.com.quebasetech.joe.campusorders.fragments.BuyerTransactions;
 import campusorders.com.quebasetech.joe.campusorders.model.Gig;
 import campusorders.com.quebasetech.joe.campusorders.model.Order;
 import campusorders.com.quebasetech.joe.campusorders.utils.utils;
@@ -94,17 +102,27 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         gigsDatabase = FirebaseDatabase.getInstance().getReference("orders");
         progressDialog = new ProgressDialog(context);
 
-        qty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        qty.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                String qtyString = qty.getText().toString();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String qtyString = s.toString();
                 if(qtyString.trim().isEmpty()) {
+                    qty.setError("Qty is required !");
+                    return;
+                }
+                if(Double.parseDouble(qtyString.trim()) == 0) {
                     qty.setError("Qty is required !");
                     return;
                 }
                 double amount = Double.parseDouble(qtyString);
                 totalPrice.setText("" + amount*gig.getPrice());
             }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
         });
 
         // Handle button clicks
@@ -122,6 +140,11 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         });
         DialogInterface.OnClickListener dialogClickListener = new  DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+                if(newLocation.getVisibility() == View.VISIBLE && newLocation.getText().toString().trim().isEmpty()) {
+                    newLocation.setError("Enter a location");
+                    Toast.makeText(context, "Order not sent, add a location", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         sendOrder();
@@ -134,7 +157,7 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         builder.setView(makeOrderDialog)
                 .setPositiveButton("ORDER", dialogClickListener)
                 .setNegativeButton("CANCEL", dialogClickListener)
-                .setMessage("Order item").show();
+                .show();
 
     }
 
@@ -153,7 +176,7 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
         }
 
         if(newLocation.getVisibility() == View.VISIBLE){
-            location = newLocation.getText().toString();
+            location = newLocation.getText().toString().trim();
         } else {
             location = defaultUserLocation;
         }
@@ -168,6 +191,7 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
                     @Override
                     public void onSuccess(Void aVoid) {
                         progressDialog.dismiss();
+                        Toast.makeText(context, "Order sent.", Toast.LENGTH_SHORT).show();
                         // TODO: Take user to transactions page
                     }
                 })
@@ -175,7 +199,7 @@ public class Items_Adapter extends ArrayAdapter<Gig> {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(), "Failed editing item: "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Failed placing order: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

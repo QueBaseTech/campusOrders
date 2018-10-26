@@ -70,6 +70,7 @@ public class BuyerDashboard extends Fragment {
         sellingItems.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                gigsList.clear();
                 for(DataSnapshot gig: dataSnapshot.getChildren()) {
                     gigsList.add(gig.getValue(Gig.class));
                 }

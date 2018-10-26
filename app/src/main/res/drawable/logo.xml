@@ -24,7 +24,7 @@
         android:angle="45"
         android:endColor="#01f1fa"
         android:gradientRadius="0.5dp"
-        android:startColor="#0189ff"
+        android:startColor="#01ff4d"
         android:type="linear" />
 
     <!--If your shape requires only one solid color-->

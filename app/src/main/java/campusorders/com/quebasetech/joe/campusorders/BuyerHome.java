@@ -50,12 +50,35 @@ public class BuyerHome extends AppCompatActivity {
         setContentView(R.layout.activity_buyer_home);
         context = this;
 
+        if(!utils.isUserLoggedIn()) {
+            startActivity(new Intent(context, LoginActivity.class));
+            finish();
+        }
+
         if (utils.isBuyer(context))
             loadFragment(new BuyerDashboard());  // Load default user fragment
         else
             loadFragment(new SellerOrders()); // Load default user fragment
 
         setupBottomNavigation();
+    }
+
+    // TODO:: Implement press twice to exit
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!utils.isUserLoggedIn()) {
+            startActivity(new Intent(context, LoginActivity.class));
+        }
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(!utils.isUserLoggedIn()) {
+            startActivity(new Intent(context, LoginActivity.class));
+        }
     }
 
     @Override
@@ -84,7 +107,7 @@ public class BuyerHome extends AppCompatActivity {
         }
     }
 
-    private boolean loadFragment(Fragment fragment) {
+    public boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()

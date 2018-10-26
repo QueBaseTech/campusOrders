@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
         loginBtn = (Button) findViewById(R.id.login_button);
         registerButton = (Button) findViewById(R.id.login_button);
         mEmail = (EditText) findViewById(R.id.email_field);

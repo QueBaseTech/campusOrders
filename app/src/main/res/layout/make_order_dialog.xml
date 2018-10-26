@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Peanuts"
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -41,10 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
         android:text="Ksh: "
-        app:layout_constraintStart_toEndOf="@+id/item_to_order"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/item_to_order"
+        app:layout_constraintStart_toEndOf="@+id/item_to_order" />
 
     <TextView
         android:id="@+id/price"
@@ -52,10 +51,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
         android:text="20.00"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView16"
+        app:layout_constraintStart_toEndOf="@+id/textView16" />
 
     <TextView
         android:id="@+id/textView18"
@@ -110,6 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
+        android:background="@drawable/secondary_button"
         android:text="change location"
         android:textAllCaps="false"
         android:textSize="10sp"
@@ -123,8 +122,10 @@
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
         android:ems="10"
-        android:hint="Current location..."
+        android:hint="Enter current location..."
         android:inputType="text"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/change_location" />

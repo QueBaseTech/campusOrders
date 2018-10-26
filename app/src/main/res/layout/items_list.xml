@@ -43,6 +43,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="8dp"
             android:text="@string/price_ksh"
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/order_location" />
 
@@ -50,11 +51,11 @@
             android:id="@+id/item_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="72dp"
-            android:layout_marginStart="72dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:text="20"
             app:layout_constraintBaseline_toBaselineOf="@+id/price_label"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/price_label" />
 
         <TextView
             android:id="@+id/seller_label"
@@ -64,6 +65,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="8dp"
             android:text="Seller: "
+            android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/price_label" />
 
@@ -71,20 +73,19 @@
             android:id="@+id/seller_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="56dp"
-            android:layout_marginStart="56dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
             android:text="Jane Doe"
             app:layout_constraintBaseline_toBaselineOf="@+id/seller_label"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/seller_label" />
 
         <Button
             android:id="@+id/orderBtn"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@drawable/primary_button"
             android:text="@string/order"
-            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.862"

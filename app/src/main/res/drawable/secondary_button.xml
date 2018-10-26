@@ -2,7 +2,7 @@
 <!--
   ~ Copyright (c) 2018.  Que Base Technologies
   ~
-  ~ Joe Nyugoh 24/ 10/ 2018.
+  ~ Joe Nyugoh 26/ 10/ 2018.
   ~ MIT License
   ~
   ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -16,10 +16,12 @@
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners
-        android:radius="3dp"/>
-    <solid
-        android:color="@android:color/holo_blue_dark" />
-    <stroke
-        android:color="#ffffff"
-        android:width="2dp"/>
+        android:radius="6dp"/>
+
+    <gradient
+        android:angle="90"
+        android:endColor="#4b7bea"
+        android:gradientRadius="0.5dp"
+        android:startColor="#01fa86"
+        android:type="linear" />
 </shape>
