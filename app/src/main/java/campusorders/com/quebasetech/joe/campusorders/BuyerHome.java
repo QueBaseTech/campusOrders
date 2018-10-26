@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,12 +41,7 @@ import campusorders.com.quebasetech.joe.campusorders.fragments.UserSettings;
 import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
 public class BuyerHome extends AppCompatActivity {
-    private SharedPreferences mPreferences;
-    private SharedPreferences.Editor mEditor;
-    private boolean isBuyer;
     private Context context;
-    private FirebaseUser mAuthUser;
-    private FirebaseAuth  firebaseAuth;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -54,22 +50,11 @@ public class BuyerHome extends AppCompatActivity {
         setContentView(R.layout.activity_buyer_home);
         context = this;
 
-        // Get the current user profile
-        mPreferences = getSharedPreferences(Settings_Profile.PROFILE_SETTINGS, MODE_PRIVATE);
-        mEditor = mPreferences.edit();
-        isBuyer = mPreferences.getBoolean(Settings_Profile.IS_BUYER, true);
+        if (utils.isBuyer(context))
+            loadFragment(new BuyerDashboard());  // Load default user fragment
+        else
+            loadFragment(new SellerOrders()); // Load default user fragment
 
-        Toast.makeText(this, getSharedPreferences(utils.CURRENT_USER, MODE_PRIVATE).getString(utils.USER_NAME, "None"), Toast.LENGTH_SHORT).show();
-        firebaseAuth = FirebaseAuth.getInstance();
-        mAuthUser = firebaseAuth.getCurrentUser();
-
-        if (isBuyer) {
-            // Load default user fragment
-            loadFragment(new BuyerDashboard());
-        } else {
-            // Load default user fragment
-            loadFragment(new SellerOrders());
-        }
         setupBottomNavigation();
     }
 
@@ -87,6 +72,7 @@ public class BuyerHome extends AppCompatActivity {
                 startActivity(settings);
                 return true;
             case R.id.logout_button:
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 // Clear user prefs
                 getSharedPreferences(utils.CURRENT_USER, MODE_PRIVATE).edit().clear().commit();
@@ -110,7 +96,7 @@ public class BuyerHome extends AppCompatActivity {
     }
 
     private void setupBottomNavigation() {
-        if (isBuyer) {
+        if (utils.isBuyer(context)) {
             bottomNavigationView = (BottomNavigationView) findViewById(R.id.buyer_navigation);
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

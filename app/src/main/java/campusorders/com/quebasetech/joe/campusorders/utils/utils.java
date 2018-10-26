@@ -15,6 +15,7 @@
 
 package campusorders.com.quebasetech.joe.campusorders.utils;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -32,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import campusorders.com.quebasetech.joe.campusorders.AccountSetup;
 import campusorders.com.quebasetech.joe.campusorders.BuyerHome;
+import campusorders.com.quebasetech.joe.campusorders.Settings_Profile;
 import campusorders.com.quebasetech.joe.campusorders.model.User;
 
 public class utils extends AppCompatActivity{
@@ -55,6 +57,24 @@ public class utils extends AppCompatActivity{
             return firebaseUser.getEmail();
         else
             return "";
+    }
+
+    /*
+    * Return current user profile
+    * Defaults to buyer
+    * */
+    public static boolean isBuyer(Context context) {
+        SharedPreferences mPreferences = context.getSharedPreferences(Settings_Profile.PROFILE_SETTINGS, MODE_PRIVATE);
+        return mPreferences.getBoolean(Settings_Profile.IS_BUYER, true);
+    }
+
+    /*
+    * Return true if user is logged in
+    * */
+    public static boolean isUserLoggedIn() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        return firebaseUser != null;
     }
 
     /**
