@@ -19,6 +19,17 @@
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/noTransactionsNotice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="20dp"
+            android:text="You have not made any transactions yet, place orders to start."
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
         <ListView
             android:id="@+id/items_list_view"
             android:layout_width="match_parent"

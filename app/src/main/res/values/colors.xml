@@ -11,4 +11,7 @@
     <color name="accent_material_light">#11e03e</color>
     <color name="background_material_light">#fbfbfb</color>
     <color name="foreground_material_light">#ffffff</color>
+    <color name="completeOrderBackground">#ffffff</color>
+    <color name="pending_order_background_color">#e7b7e1b4</color>
+
 </resources>

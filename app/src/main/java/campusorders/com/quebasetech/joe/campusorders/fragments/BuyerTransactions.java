@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +40,7 @@ public class BuyerTransactions extends Fragment {
     private ListView ordersListView;
     private DatabaseReference databaseReference;
     private HashMap gigsList, usersList;
+    private TextView noTransactionsNotice;
     Context context;
 
     @Override
@@ -55,6 +57,7 @@ public class BuyerTransactions extends Fragment {
         orderList = new ArrayList<>();
         gigsList = new HashMap();
         usersList = new HashMap();
+        noTransactionsNotice = (TextView) view.findViewById(R.id.noTransactionsNotice);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference gigsRef = databaseReference.child("gigs");
@@ -90,9 +93,12 @@ public class BuyerTransactions extends Fragment {
         sellingItems.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                orderList.clear();
                 for(DataSnapshot order: dataSnapshot.getChildren()) {
                     orderList.add(order.getValue(Order.class));
                 }
+                if(orderList.isEmpty())
+                    noTransactionsNotice.setVisibility(View.VISIBLE);
                 BuyerTransactionAdapter adapter = new BuyerTransactionAdapter(context, orderList, gigsList, usersList);
                 ordersListView.setAdapter(adapter);
             }

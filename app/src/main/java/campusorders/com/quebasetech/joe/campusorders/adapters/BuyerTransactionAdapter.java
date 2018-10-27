@@ -32,6 +32,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -42,6 +44,7 @@ import java.util.List;
 
 import campusorders.com.quebasetech.joe.campusorders.R;
 import campusorders.com.quebasetech.joe.campusorders.model.Order;
+import campusorders.com.quebasetech.joe.campusorders.model.Reason;
 
 public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
     private  final Context context;
@@ -49,6 +52,8 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
     private DatabaseReference ordersRef;
     private HashMap sellers;
     private HashMap gigs;
+    private EditText customReason;
+    private String reason;
 
     public BuyerTransactionAdapter(@NonNull Context context, List<Order> orders, HashMap gigs, HashMap sellers) {
         super(context, R.layout.buyer_orders, orders);
@@ -78,7 +83,7 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
         item.setText(gigs.get(order.getGigId()).toString());
         location.setText(order.getLocation());
         Date orderTime = new Date(order.getOrderTime());
-        SimpleDateFormat format = new SimpleDateFormat("E dd/MM/yy,  hh:mm a");
+        SimpleDateFormat format = new SimpleDateFormat("E dd/MM/yy  hh:mm a");
         date.setText(format.format(orderTime));
         status.setText(""+order.getStatus());
         seller.setText(sellers.get(order.getSeller()).toString());
@@ -96,13 +101,18 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
 
         if(order.getStatus() == Order.orderStatus.FULFILLED) {
             button.setVisibility(View.GONE);
+            view.setBackgroundColor(context.getResources().getColor(R.color.completeOrderBackground));
         }
 
         if(order.getStatus() == Order.orderStatus.NEW) {
             view.setBackgroundColor(context.getResources().getColor(R.color.colorNewOrder));
         }
 
-        if(order.getStatus() == Order.orderStatus.REJECTED) {
+        if(order.getStatus() == Order.orderStatus.PENDING) {
+            view.setBackgroundColor(context.getResources().getColor(R.color.pending_order_background_color));
+        }
+
+        if(order.getStatus() == Order.orderStatus.REJECTED || order.getStatus() == Order.orderStatus.CANCELLED) {
             button.setVisibility(View.GONE);
             view.setBackgroundColor(context.getResources().getColor(R.color.colorRejectedOrder));
         }
@@ -115,33 +125,14 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
         final View cancelDialog = inflater.inflate(R.layout.cancel_order_dialog, null);
 
         RadioGroup reasons = (RadioGroup) cancelDialog.findViewById(R.id.cancel_radio_group);
-        final EditText customReason = (EditText) cancelDialog.findViewById(R.id.custom_cancel_reason);
+        customReason = (EditText) cancelDialog.findViewById(R.id.custom_cancel_reason);
         RadioButton otherReason = (RadioButton) cancelDialog.findViewById(R.id.cancel_other_reason_rb);
-        final String reason = new String("REASON");
-
+        reason = "";
         // Handle button clicks
         reasons.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                customReason.setVisibility(View.GONE);
-                reason.replaceAll("(.*)REASON(.*)", "REASON");
-                switch (checkedId) {
-                    case R.id.cancel_other_reason_rb:
-                        if(customReason.getVisibility() == View.GONE)
-                            customReason.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.high_price:
-                        reason.replaceAll("(.*)REASON(.*)", "High price");
-                        break;
-                    case R.id.not_responding:
-                        reason.replaceAll("(.*)REASON(.*)", "Took too long to respond");
-                        break;
-                    case R.id.changed_mind_rb:
-                        reason.replaceAll("(.*)REASON(.*)", "Changed my mind");
-                        break;
-                    default:
-
-                }
+                setReason(checkedId);
             }
         });
         DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
@@ -151,9 +142,7 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
                     case DialogInterface.BUTTON_NEGATIVE:
                         break;
                     case DialogInterface.BUTTON_POSITIVE:
-                        if(customReason.getVisibility() == View.VISIBLE)
-                            reason.replace("REASON", customReason.getText().toString().trim());
-                        performCancel(order, reason);
+                        performCancel(order);
                 }
             }
         };
@@ -164,7 +153,54 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
 
     }
 
-    private void performCancel(final Order order, String reason) {
-        Toast.makeText(context, reason, Toast.LENGTH_SHORT).show();
+    private void setReason(int checkedId) {
+        customReason.setVisibility(View.GONE);
+        switch (checkedId) {
+            case R.id.cancel_other_reason_rb:
+                if(customReason.getVisibility() == View.GONE)
+                    customReason.setVisibility(View.VISIBLE);
+                break;
+            case R.id.high_price:
+                reason = "High price";
+                break;
+            case R.id.not_responding:
+                reason = "Took too long to respond";
+                break;
+            case R.id.changed_mind_rb:
+                reason = "Changed my mind";
+                break;
+            default:
+        }
+    }
+
+    private void performCancel(final Order order) {
+        if(customReason.getVisibility() == View.VISIBLE)
+            reason = customReason.getText().toString().trim();
+        if(reason.isEmpty()) {
+            cancelOrder(order);
+            Toast.makeText(context, "Choose a reason", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ordersRef.child(order.getId()).child("status").setValue(Order.orderStatus.CANCELLED).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(context, "Order cancelled successfully", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "Order failed to cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /*
+        * Store reason for canceling order
+        * */
+        DatabaseReference reasonRef = FirebaseDatabase.getInstance().getReference("reasons");
+        String id = reasonRef.push().getKey();
+        Date now = new Date();
+        Reason cause = new Reason(order.getId(), order.getClient(), order.getSeller(), reason, id, Order.orderStatus.CANCELLED, now.getTime());
+        reasonRef.child(id).setValue(cause);
     }
 }
