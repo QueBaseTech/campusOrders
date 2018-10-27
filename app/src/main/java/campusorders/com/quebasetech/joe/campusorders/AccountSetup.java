@@ -88,7 +88,7 @@ public class AccountSetup extends AppCompatActivity {
 
                 if(!mContestCheckbox.isChecked()) {
                     mContestCheckbox.setError("You must agree to terms before continuing.");
-                    mContestCheckbox.setTextColor(getResources().getColor(R.color.colorOrange));
+                    mContestCheckbox.setTextColor(getResources().getColor(R.color.color_red));
                     return;
                 }
                 progressDialog.setMessage("Setting up account...");

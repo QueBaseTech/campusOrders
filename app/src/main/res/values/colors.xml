@@ -6,6 +6,7 @@
     <color name="colorNewOrder">#e6d7d4d4</color>
     <color name="colorRejectedOrder">#eef1b3b3</color>
     <color name="colorOrange">#ffd940</color>
+    <color name="color_red">#eb2e24</color>
     <color name="primary_material_light">#03a9f4</color>
     <color name="primary_dark_material_light">#107cb7</color>
     <color name="accent_material_light">#11e03e</color>

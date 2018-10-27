@@ -27,7 +27,7 @@
             android:parentActivityName=".BuyerHome" />
         <activity
             android:name=".AccountSetup"
-            android:label="Account Setup"
+            android:label="Setup your account"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".HelpPage"

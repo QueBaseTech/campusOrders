@@ -22,28 +22,15 @@
     tools:context=".AccountSetup">
 
     <TextView
-        android:id="@+id/textView9"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_light"
-        android:padding="10dp"
-        android:text="Setup your account"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Full name:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/full_name"
@@ -51,10 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Jane Doe"
         android:inputType="textPersonName"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -75,10 +63,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="0706352266"
         android:inputType="phone"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
@@ -113,6 +102,8 @@
         android:ems="10"
         android:hint="Block D"
         android:inputType="textPersonName"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView13"
         app:layout_constraintStart_toEndOf="@+id/textView13" />
 
@@ -122,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Room"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -134,8 +125,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:ems="10"
-        android:hint="5"
+        android:hint="Rm 5"
         android:inputType="textPersonName"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/darker_gray"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView14"
         app:layout_constraintStart_toEndOf="@+id/textView14" />
 
@@ -158,9 +151,9 @@
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
         android:layout_marginTop="24dp"
-        android:background="@android:color/holo_blue_light"
+        android:background="@drawable/primary_button"
         android:text="Complete"
-        android:textColor="@android:color/white"
+        android:textColor="@color/design_default_color_primary_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/consent_check" />
 </android.support.constraint.ConstraintLayout>
