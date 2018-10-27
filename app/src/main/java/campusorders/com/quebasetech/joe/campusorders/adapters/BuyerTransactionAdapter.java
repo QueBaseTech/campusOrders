@@ -93,6 +93,19 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
                 }
             }
         });
+
+        if(order.getStatus() == Order.orderStatus.FULFILLED) {
+            button.setVisibility(View.GONE);
+        }
+
+        if(order.getStatus() == Order.orderStatus.NEW) {
+            view.setBackgroundColor(context.getResources().getColor(R.color.colorNewOrder));
+        }
+
+        if(order.getStatus() == Order.orderStatus.REJECTED) {
+            button.setVisibility(View.GONE);
+            view.setBackgroundColor(context.getResources().getColor(R.color.colorRejectedOrder));
+        }
         return view;
     }
 

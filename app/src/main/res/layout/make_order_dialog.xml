@@ -52,6 +52,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:text="20.00"
+        android:textColor="@android:color/black"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView16"
         app:layout_constraintStart_toEndOf="@+id/textView16" />
 
@@ -108,10 +109,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:background="@drawable/secondary_button"
+        android:background="@drawable/primary_button"
         android:text="change location"
         android:textAllCaps="false"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/location"
         app:layout_constraintStart_toEndOf="@+id/location" />
 
