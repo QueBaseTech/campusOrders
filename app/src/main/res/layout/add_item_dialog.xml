@@ -15,7 +15,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:text="Name: "
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -26,7 +25,7 @@
 
     <EditText
         android:id="@+id/order_location"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -53,7 +52,7 @@
 
     <EditText
         android:id="@+id/item_unit"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -80,7 +79,7 @@
 
     <EditText
         android:id="@+id/item_price"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
@@ -94,28 +93,27 @@
     <Button
         android:id="@+id/add_item_cancel_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/holo_red_dark"
+        android:layout_height="30dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/secondary_button"
         android:text="Cancel"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintStart_toEndOf="@+id/add_item_btn"
-        app:layout_constraintTop_toBottomOf="@+id/item_price" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/add_item_btn"
+        app:layout_constraintEnd_toStartOf="@+id/add_item_btn" />
 
     <Button
         android:id="@+id/add_item_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/holo_blue_light"
+        android:layout_height="30dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/primary_button"
         android:text="Add"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_price" />
 </android.support.constraint.ConstraintLayout>
