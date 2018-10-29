@@ -67,6 +67,7 @@
             android:background="@drawable/primary_button"
             android:text="Edit"
             android:textAllCaps="false"
+            android:textColor="@android:color/white"
             app:layout_constraintBaseline_toBaselineOf="@+id/delete_gig_btn"
             app:layout_constraintEnd_toStartOf="@+id/delete_gig_btn"
             app:layout_constraintHorizontal_bias="1.0"

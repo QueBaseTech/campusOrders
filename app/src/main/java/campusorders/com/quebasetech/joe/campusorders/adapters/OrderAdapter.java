@@ -160,7 +160,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
             stmt = seconds ==1 ? " second ago":" seconds ago";
             return ""+ seconds + stmt;
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MMMM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
         return dateFormat.format(ordered);
     }
 

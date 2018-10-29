@@ -35,6 +35,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:text="No cancelled orders"
+        android:textAllCaps="true"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
         android:textStyle="italic"

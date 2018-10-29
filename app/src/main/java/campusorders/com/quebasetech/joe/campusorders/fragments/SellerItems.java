@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +33,7 @@ public class SellerItems extends Fragment {
     private List<Gig> mGigList;
     private DatabaseReference gigsRef;
     private View sellerGigsView = null;
+    private TextView notice;
     Context context;
 
     @Override
@@ -47,6 +49,7 @@ public class SellerItems extends Fragment {
 
         mGigList = new ArrayList<>();
         gigsRef = FirebaseDatabase.getInstance().getReference("gigs");
+        notice = (TextView) sellerGigsView.findViewById(R.id.no_gigs_notice);
 
         //Add add Floating button
         floatingAddItemButton = (FloatingActionButton) sellerGigsView.findViewById(R.id.floatingAddItemButton);
@@ -74,10 +77,13 @@ public class SellerItems extends Fragment {
                     Gig gig = gigSnapShot.getValue(Gig.class);
                     mGigList.add(gig);
                 }
+                if(mGigList.isEmpty())
+                    notice.setVisibility(View.VISIBLE);
                 //Display items
                 ListView gigsList = (ListView) sellerGigsView.findViewById(R.id.items_for_sale);
                 GigsAdapter gigsAdapter = new GigsAdapter(context, mGigList);
                 gigsList.setAdapter(gigsAdapter);
+
                 // TODO:: Fix this code smell (- ^ -)
                 /*gigsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
