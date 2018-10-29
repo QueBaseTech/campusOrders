@@ -53,6 +53,7 @@
             android:layout_marginLeft="32dp"
             android:layout_marginStart="32dp"
             android:text="2"
+            android:textColor="@android:color/black"
             app:layout_constraintBaseline_toBaselineOf="@+id/price_label"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -74,35 +75,38 @@
             android:layout_marginLeft="56dp"
             android:layout_marginStart="56dp"
             android:text="Jane Doe"
+            android:textColor="@android:color/black"
             app:layout_constraintBaseline_toBaselineOf="@+id/seller_label"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/deliverOrderBtn"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/holo_blue_dark"
-            android:text="Deliver"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/primary_button"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Will Deliver"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.92"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/rejectOrderBtn"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginBottom="16dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            android:background="@android:color/holo_red_light"
-            android:text="Reject"
+            android:background="@drawable/secondary_button"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Reject Order"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.92"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/deliverOrderBtn" />
 
         <TextView
@@ -129,7 +133,7 @@
 
         <TextView
             android:id="@+id/order_item"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
@@ -139,5 +143,18 @@
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/timeElapsed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="4dp"
+            android:text="30 sec ago"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rejectOrderBtn" />
+
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>
