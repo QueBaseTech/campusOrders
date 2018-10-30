@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/new_orders"
-        android:icon="@android:drawable/ic_dialog_email"
+        android:icon="@drawable/icons8_time"
         android:title="New" />
 
     <item
         android:id="@+id/complete_orders"
-        android:icon="@android:drawable/ic_dialog_email"
+        android:icon="@drawable/icons8_ok"
         android:title="Complete" />
 
     <item
         android:id="@+id/rejected_orders"
-        android:icon="@android:drawable/ic_lock_idle_lock"
+        android:icon="@drawable/icons8_delete_document"
         android:title="Rejected" />
 
     <item
         android:id="@+id/cancelled_orders"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:icon="@drawable/icons8_cancel"
         android:title="Cancelled" />
 
 </menu>

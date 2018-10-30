@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_orders"
-        android:icon="@android:drawable/ic_dialog_dialer"
+        android:icon="@drawable/icons8_deliver_food"
         android:title="@string/orders" />
 
     <item
         android:id="@+id/navigation_items"
-        android:icon="@android:drawable/ic_menu_agenda"
+        android:icon="@drawable/icons8_list"
         android:title="@string/items" />
 
     <item
         android:id="@+id/navigation_stats"
-        android:icon="@android:drawable/ic_menu_recent_history"
+        android:icon="@drawable/icons8_combo_chart"
         android:title="@string/stats" />
 
 </menu>
