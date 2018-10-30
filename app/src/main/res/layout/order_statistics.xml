@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018.  Que Base Technologies
+  ~
+  ~ Joe Nyugoh 30/ 10/ 2018.
+  ~ MIT License
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableRow
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/gig_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="12.5"
+            android:text="Apples"
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/new_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="12.5"
+            android:gravity="left|start"
+            android:text="7"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/pending_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="12.5"
+            android:gravity="left|start"
+            android:text="5"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/complete_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="12.5"
+            android:gravity="left|start"
+            android:text="20"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/rejected_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="12.5"
+            android:gravity="left|start"
+            android:text="2"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/cancelled_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="12.5"
+            android:gravity="left|start"
+            android:text="0"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/total_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="12.5"
+            android:gravity="left|start"
+            android:text="90"
+            android:textSize="12sp" />
+    </TableRow>
+</android.support.constraint.ConstraintLayout>
