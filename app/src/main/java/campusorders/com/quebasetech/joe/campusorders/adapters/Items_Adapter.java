@@ -4,10 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationMenu;
-import android.support.design.widget.BottomNavigationView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,7 +18,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,9 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import campusorders.com.quebasetech.joe.campusorders.BuyerHome;
 import campusorders.com.quebasetech.joe.campusorders.R;
-import campusorders.com.quebasetech.joe.campusorders.fragments.BuyerTransactions;
 import campusorders.com.quebasetech.joe.campusorders.model.Gig;
 import campusorders.com.quebasetech.joe.campusorders.model.Order;
 import campusorders.com.quebasetech.joe.campusorders.utils.utils;

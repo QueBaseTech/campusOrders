@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".BuyerHome"
+            android:name=".CampusOrders"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
         <activity
             android:name=".Settings_Profile"
             android:label="Settings"
-            android:parentActivityName=".BuyerHome" />
+            android:parentActivityName=".CampusOrders" />
         <activity
             android:name=".AccountSetup"
             android:label="Setup your account"

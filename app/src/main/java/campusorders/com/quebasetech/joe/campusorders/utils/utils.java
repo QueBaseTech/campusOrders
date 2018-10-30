@@ -32,7 +32,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import campusorders.com.quebasetech.joe.campusorders.AccountSetup;
-import campusorders.com.quebasetech.joe.campusorders.BuyerHome;
+import campusorders.com.quebasetech.joe.campusorders.CampusOrders;
 import campusorders.com.quebasetech.joe.campusorders.Settings_Profile;
 import campusorders.com.quebasetech.joe.campusorders.model.User;
 
@@ -103,7 +103,7 @@ public class utils extends AppCompatActivity{
                 editor.putString(USER_LOCATION, currentUser.getLocation());
                 editor.putString(USER_PHONE, currentUser.getPhoneNumber());
                 editor.commit();// Save all
-                Intent home = new Intent(getApplicationContext(), BuyerHome.class);
+                Intent home = new Intent(getApplicationContext(), CampusOrders.class);
                 startActivity(home);
                 finish();
             }

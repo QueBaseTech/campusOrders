@@ -30,7 +30,6 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -154,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showHome() {
-        Intent home = new Intent(getApplicationContext(), BuyerHome.class);
+        Intent home = new Intent(getApplicationContext(), CampusOrders.class);
         startActivity(home);
         finish();
     }
@@ -208,7 +207,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString(USER_LOCATION, user.getLocation());
         editor.putString(USER_PHONE, user.getPhoneNumber());
         editor.commit();// Save all
-        Intent home = new Intent(getApplicationContext(), BuyerHome.class);
+        Intent home = new Intent(getApplicationContext(), CampusOrders.class);
         startActivity(home);
         finish();
     }

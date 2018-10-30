@@ -20,6 +20,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,7 @@ public class BuyerDashboard extends Fragment {
                 for(DataSnapshot gig: dataSnapshot.getChildren()) {
                     gigsList.add(gig.getValue(Gig.class));
                 }
+                Collections.reverse(gigsList);
                 Items_Adapter adapter = new Items_Adapter(context, gigsList, usersList);
                 itemsList.setAdapter(adapter);
             }

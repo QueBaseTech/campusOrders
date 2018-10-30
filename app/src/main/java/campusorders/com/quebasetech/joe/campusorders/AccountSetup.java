@@ -140,7 +140,7 @@ public class AccountSetup extends AppCompatActivity {
         editor.putString(USER_LOCATION, user.getLocation());
         editor.putString(USER_PHONE, user.getPhoneNumber());
         editor.commit();// Save all
-        Intent home = new Intent(getApplicationContext(), BuyerHome.class);
+        Intent home = new Intent(getApplicationContext(), CampusOrders.class);
         startActivity(home);
         finish();
     }
