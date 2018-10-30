@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -30,12 +31,14 @@ import campusorders.com.quebasetech.joe.campusorders.R;
 import campusorders.com.quebasetech.joe.campusorders.model.Gig;
 import campusorders.com.quebasetech.joe.campusorders.model.User;
 
-public class BuyerDashboard extends Fragment {
+public class BuyerDashboard extends Fragment implements SearchView.OnQueryTextListener{
     private ListView itemsList;
     private DatabaseReference databaseReference;
     private Context context;
     private List<Gig> gigsList;
     private HashMap usersList;
+    private SearchView searchView;
+    private Items_Adapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +53,9 @@ public class BuyerDashboard extends Fragment {
         itemsList = (ListView) view.findViewById(R.id.items_list_view);
         gigsList = new ArrayList<>();
         usersList = new HashMap();
+        searchView = (SearchView) view.findViewById(R.id.search_item);
 
+        searchView.setOnQueryTextListener(this);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference gigsRef = databaseReference.child("gigs");
         DatabaseReference usersRef = databaseReference.child("users");
@@ -76,7 +81,7 @@ public class BuyerDashboard extends Fragment {
                     gigsList.add(gig.getValue(Gig.class));
                 }
                 Collections.reverse(gigsList);
-                Items_Adapter adapter = new Items_Adapter(context, gigsList, usersList);
+                adapter = new Items_Adapter(context, gigsList, usersList);
                 itemsList.setAdapter(adapter);
             }
 
@@ -86,5 +91,17 @@ public class BuyerDashboard extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String text = newText;
+        adapter.getFilter().filter(text);
+        return false;
     }
 }

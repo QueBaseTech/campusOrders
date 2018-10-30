@@ -19,7 +19,16 @@
             android:padding="10dp"
             android:text="@string/order_list_title"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <SearchView
+            android:id="@+id/search_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray"
+            android:padding="2dp"
+            android:queryHint="Search for items" />
 
         <ListView
             android:id="@+id/items_list_view"
