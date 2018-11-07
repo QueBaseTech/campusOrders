@@ -42,6 +42,7 @@ public class utils extends AppCompatActivity{
     public static final String USER_NAME = "USER_NAME";
     public static final String USER_LOCATION = "USER_LOCATION";
     public static final String USER_PHONE = "USER_PHONE";
+    public static final String USER_ISBUYER = "USER_ISBUYER";
 
 
     /**
@@ -64,8 +65,8 @@ public class utils extends AppCompatActivity{
     * Defaults to buyer
     * */
     public static boolean isBuyer(Context context) {
-        SharedPreferences mPreferences = context.getSharedPreferences(Settings_Profile.PROFILE_SETTINGS, MODE_PRIVATE);
-        return mPreferences.getBoolean(Settings_Profile.IS_BUYER, true);
+        SharedPreferences mPreferences = context.getSharedPreferences(CURRENT_USER, MODE_PRIVATE);
+        return mPreferences.getBoolean(USER_ISBUYER, true);
     }
 
     /*
@@ -102,6 +103,7 @@ public class utils extends AppCompatActivity{
                 editor.putString(USER_NAME, currentUser.getName());
                 editor.putString(USER_LOCATION, currentUser.getLocation());
                 editor.putString(USER_PHONE, currentUser.getPhoneNumber());
+                editor.putBoolean(USER_ISBUYER, currentUser.isBuyer());
                 editor.commit();// Save all
                 Intent home = new Intent(getApplicationContext(), CampusOrders.class);
                 startActivity(home);
@@ -110,7 +112,7 @@ public class utils extends AppCompatActivity{
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(utils.this, "Error: "+ databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(utils.this, "Prefs error: "+ databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

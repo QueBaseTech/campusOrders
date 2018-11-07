@@ -53,6 +53,7 @@ import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.CURRENT_USER;
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_ID;
+import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_ISBUYER;
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_LOCATION;
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_NAME;
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_PHONE;
@@ -95,8 +96,8 @@ public class LoginActivity extends AppCompatActivity {
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         if(email.isEmpty() || password.isEmpty()) {
-//            Toast.makeText(getApplicationContext(), "All fields are required.", Toast.LENGTH_SHORT).show();
-            errorView.setText("All fields are required");
+            Toast.makeText(getApplicationContext(), "All fields are required.", Toast.LENGTH_LONG).show();
+//            errorView.setText("All fields are required");
             return;
         }
         progressDialog.setMessage("Registering, Please Wait...");
@@ -110,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success
                             Toast.makeText(getApplicationContext(), "Registration Successful.", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //TODO:: Launch Set-up activity
                             Intent intent = new Intent(getApplicationContext(), AccountSetup.class);
                             intent.putExtra("FROM", "REGISTER");
                             startActivity(intent);
@@ -131,7 +131,8 @@ public class LoginActivity extends AppCompatActivity {
         String email = mEmail .getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         if(email.isEmpty() || password.isEmpty()) {
-            errorView.setText("All fields are required");
+            Toast.makeText(getApplicationContext(), "All fields are required.", Toast.LENGTH_LONG).show();
+//            errorView.setText("All fields are required");
             return;
         }
 
@@ -195,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         } else {
             progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Can't login right now, ensure you have an internet connection", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Error logging, try again", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -206,6 +207,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString(USER_NAME, user.getName());
         editor.putString(USER_LOCATION, user.getLocation());
         editor.putString(USER_PHONE, user.getPhoneNumber());
+        editor.putBoolean(USER_ISBUYER, user.isBuyer());
         editor.commit();// Save all
         Intent home = new Intent(getApplicationContext(), CampusOrders.class);
         startActivity(home);

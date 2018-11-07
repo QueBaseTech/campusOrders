@@ -81,6 +81,8 @@ public class SellerItems extends Fragment {
                 Collections.reverse(mGigList);
                 if(mGigList.isEmpty())
                     notice.setVisibility(View.VISIBLE);
+                else
+                    notice.setVisibility(View.INVISIBLE);
                 //Display items
                 ListView gigsList = (ListView) sellerGigsView.findViewById(R.id.items_for_sale);
                 GigsAdapter gigsAdapter = new GigsAdapter(context, mGigList);

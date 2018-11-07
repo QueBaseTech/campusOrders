@@ -38,6 +38,7 @@ import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.CURRENT_USER;
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_ID;
+import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_ISBUYER;
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_LOCATION;
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_NAME;
 import static campusorders.com.quebasetech.joe.campusorders.utils.utils.USER_PHONE;
@@ -109,7 +110,7 @@ public class AccountSetup extends AppCompatActivity {
                 }
 //                String location = String.join(" ", hostel, room);
                 String location = hostel + " " + room;
-                final User user = new User(id, name, email, phoneNumber, location);
+                final User user = new User(id, name, email, phoneNumber, location, true);
                 usersRef.child(user.getId())
                         .setValue(user)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -139,6 +140,7 @@ public class AccountSetup extends AppCompatActivity {
         editor.putString(USER_NAME, user.getName());
         editor.putString(USER_LOCATION, user.getLocation());
         editor.putString(USER_PHONE, user.getPhoneNumber());
+        editor.putBoolean(USER_ISBUYER, user.isBuyer());
         editor.commit();// Save all
         Intent home = new Intent(getApplicationContext(), CampusOrders.class);
         startActivity(home);

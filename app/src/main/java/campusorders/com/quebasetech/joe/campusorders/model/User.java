@@ -21,15 +21,25 @@ public class User {
     private String name;
     private String phoneNumber;
     private String location;
+    private boolean isBuyer;
 
     public User() { }
 
-    public User(String id, String name, String email, String phoneNumber, String location) {
+    public User(String id, String name, String email, String phoneNumber, String location, boolean isBuyer) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.location = location;
+        this.isBuyer = isBuyer;
+    }
+
+    public boolean isBuyer() {
+        return isBuyer;
+    }
+
+    public void setBuyer(boolean buyer) {
+        isBuyer = buyer;
     }
 
     public String getName() {
@@ -79,6 +89,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", location='" + location + '\'' +
+                ", isBuyer='" + isBuyer + '\'' +
                 '}';
     }
 }
