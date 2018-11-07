@@ -29,6 +29,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -53,6 +55,21 @@ public class CampusOrders extends AppCompatActivity {
         if(!utils.isUserLoggedIn()) {
             startActivity(new Intent(context, LoginActivity.class));
             finish();
+            return;
+        }
+
+        if(!utils.isEmailVerified()) {
+            FirebaseAuth.getInstance().getCurrentUser().reload().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        if(!utils.isEmailVerified()){
+                            startActivity(new Intent(context, VerifyEmail.class));
+                            finish();
+                        }
+                    }
+                }
+            });
         }
 
         if (utils.isBuyer(context))
@@ -95,12 +112,8 @@ public class CampusOrders extends AppCompatActivity {
                 startActivity(settings);
                 return true;
             case R.id.logout_button:
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                firebaseAuth.signOut();
-                // Clear user prefs
-                getSharedPreferences(utils.CURRENT_USER, MODE_PRIVATE).edit().clear().commit();
+                utils.logout(CampusOrders.this);
                 finish();
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

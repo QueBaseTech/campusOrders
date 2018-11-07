@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import campusorders.com.quebasetech.joe.campusorders.AccountSetup;
 import campusorders.com.quebasetech.joe.campusorders.CampusOrders;
+import campusorders.com.quebasetech.joe.campusorders.LoginActivity;
 import campusorders.com.quebasetech.joe.campusorders.Settings_Profile;
 import campusorders.com.quebasetech.joe.campusorders.model.User;
 
@@ -78,6 +79,15 @@ public class utils extends AppCompatActivity{
         return firebaseUser != null;
     }
 
+    /*
+     * Return true if user email is verified
+     * */
+    public static boolean isEmailVerified() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        return firebaseUser.isEmailVerified();
+    }
+
     /**
      * Get the current user and persist them to Shared Prefs
      */
@@ -117,4 +127,12 @@ public class utils extends AppCompatActivity{
         });
     }
 
+    public static void logout(Context context) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signOut();
+        // Clear user prefs
+        context.getSharedPreferences(utils.CURRENT_USER, MODE_PRIVATE).edit().clear().commit();
+        // Take them to login
+        context.startActivity(new Intent(context, LoginActivity.class));
+    }
 }

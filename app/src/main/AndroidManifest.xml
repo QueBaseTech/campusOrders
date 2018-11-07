@@ -17,10 +17,11 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".Settings_Profile"
             android:label="Settings"
@@ -31,15 +32,19 @@
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".HelpPage"
-            android:parentActivityName=".Settings_Profile"
-            android:label="Help"/>
+            android:label="Help"
+            android:parentActivityName=".Settings_Profile" />
         <activity
             android:name=".AboutPage"
             android:label="About App"
-            android:parentActivityName=".Settings_Profile"/>
+            android:parentActivityName=".Settings_Profile" />
         <activity
             android:name=".AccountInfo"
             android:label="Account Info"
+            android:parentActivityName=".Settings_Profile" />
+        <activity
+            android:name=".VerifyEmail"
+            android:label="Verify your account"
             android:parentActivityName=".Settings_Profile"/>
     </application>
 
