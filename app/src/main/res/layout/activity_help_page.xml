@@ -28,7 +28,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Help page"
+        android:text="Visit quebasetech.github.io/campus for more details."
         android:textColor="@android:color/black"
         android:textFontWeight="18sp"
         app:layout_constraintStart_toStartOf="parent"
