@@ -29,6 +29,7 @@ import campusorders.com.quebasetech.joe.campusorders.adapters.BuyerTransactionAd
 import campusorders.com.quebasetech.joe.campusorders.adapters.Items_Adapter;
 import campusorders.com.quebasetech.joe.campusorders.model.Gig;
 import campusorders.com.quebasetech.joe.campusorders.model.Order;
+import campusorders.com.quebasetech.joe.campusorders.model.Reason;
 import campusorders.com.quebasetech.joe.campusorders.model.User;
 import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
@@ -41,7 +42,7 @@ public class BuyerTransactions extends Fragment {
     private List<Order> orderList;
     private ListView ordersListView;
     private DatabaseReference databaseReference;
-    private HashMap gigsList, usersList;
+    private HashMap gigsList, usersList, reasons;
     private TextView noTransactionsNotice;
     private ProgressBar loading;
     Context context;
@@ -60,6 +61,7 @@ public class BuyerTransactions extends Fragment {
         orderList = new ArrayList<>();
         gigsList = new HashMap();
         usersList = new HashMap();
+        reasons = new HashMap();
         noTransactionsNotice = (TextView) view.findViewById(R.id.noTransactionsNotice);
         loading = (ProgressBar) view.findViewById(R.id.loading_transactions);
 
@@ -67,11 +69,25 @@ public class BuyerTransactions extends Fragment {
         DatabaseReference gigsRef = databaseReference.child("gigs");
         DatabaseReference usersRef = databaseReference.child("users");
         DatabaseReference ordersRef = databaseReference.child("orders");
+        DatabaseReference reasonRef = databaseReference.child("reasons");
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot user: dataSnapshot.getChildren()) {
                     usersList.put(user.getValue(User.class).getId(), user.getValue(User.class).getName());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        reasonRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot reason: dataSnapshot.getChildren()) {
+                    reasons.put(reason.getValue(Reason.class).getOrderId(), reason.getValue(Reason.class).getReason());
                 }
             }
 
@@ -105,7 +121,7 @@ public class BuyerTransactions extends Fragment {
                 Collections.reverse(orderList);
                 if(orderList.isEmpty())
                     noTransactionsNotice.setVisibility(View.VISIBLE);
-                BuyerTransactionAdapter adapter = new BuyerTransactionAdapter(context, orderList, gigsList, usersList);
+                BuyerTransactionAdapter adapter = new BuyerTransactionAdapter(context, orderList, gigsList, usersList, reasons);
                 ordersListView.setAdapter(adapter);
             }
 

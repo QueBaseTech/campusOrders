@@ -37,7 +37,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +44,7 @@ import java.util.List;
 import campusorders.com.quebasetech.joe.campusorders.R;
 import campusorders.com.quebasetech.joe.campusorders.model.Order;
 import campusorders.com.quebasetech.joe.campusorders.model.Reason;
+import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
 public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
     private  final Context context;
@@ -52,14 +52,16 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
     private DatabaseReference ordersRef;
     private HashMap sellers;
     private HashMap gigs;
+    private HashMap reasons;
     private EditText customReason;
     private String reason;
 
-    public BuyerTransactionAdapter(@NonNull Context context, List<Order> orders, HashMap gigs, HashMap sellers) {
+    public BuyerTransactionAdapter(@NonNull Context context, List<Order> orders, HashMap gigs, HashMap sellers, HashMap reasons) {
         super(context, R.layout.buyer_orders, orders);
         this.context = context;
         this.orderList = orders;
         this.sellers = sellers;
+        this.reasons = reasons;
         this.gigs = gigs;
     }
 
@@ -76,15 +78,14 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
         TextView status = (TextView) view.findViewById(R.id.order_status);
         TextView seller = (TextView) view.findViewById(R.id.textView24);
         TextView total = (TextView) view.findViewById(R.id.textView22);
+        TextView reason = (TextView) view.findViewById(R.id.reason);
         final Button button = (Button) view.findViewById(R.id.button);
 
         final Order order = orderList.get(position);
         qty.setText(""+order.getQty()+",");
         item.setText(gigs.get(order.getGigId()).toString());
         location.setText(order.getLocation());
-        Date orderTime = new Date(order.getOrderTime());
-        SimpleDateFormat format = new SimpleDateFormat("E dd/MM/yy  hh:mm a");
-        date.setText(format.format(orderTime));
+        date.setText(utils.getElapsedTime(order.getOrderTime()));
         status.setText(""+order.getStatus());
         seller.setText(sellers.get(order.getSeller()).toString());
         total.setText(""+order.getTotal());
@@ -114,6 +115,8 @@ public class BuyerTransactionAdapter extends ArrayAdapter<Order> {
 
         if(order.getStatus() == Order.orderStatus.REJECTED || order.getStatus() == Order.orderStatus.CANCELLED) {
             button.setVisibility(View.GONE);
+            reason.setVisibility(View.VISIBLE);
+            reason.setText(""+(reasons.get(order.getId()) == null? "": reasons.get(order.getId())));
             view.setBackgroundColor(context.getResources().getColor(R.color.colorRejectedOrder));
         }
         return view;

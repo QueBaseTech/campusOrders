@@ -126,7 +126,7 @@ public class NewOrders extends Fragment {
                     Order order = orderSnapshot.getValue(Order.class);
                     if(order.getStatus() == Order.orderStatus.NEW || order.getStatus() == Order.orderStatus.PENDING)
                         orders.add(order);
-                    OrderAdapter adapter = new OrderAdapter(context, orders, clients, gigs);
+                    OrderAdapter adapter = new OrderAdapter(context, orders, clients, gigs, null);
                     ordersList.setAdapter(adapter);
                 }
                 Collections.reverse(orders);
@@ -134,6 +134,9 @@ public class NewOrders extends Fragment {
                 loading.setVisibility(View.GONE);
                 if(orders.isEmpty())
                     notice.setVisibility(View.VISIBLE);
+                else
+                    notice.setVisibility(View.GONE);
+
             }
 
             @Override

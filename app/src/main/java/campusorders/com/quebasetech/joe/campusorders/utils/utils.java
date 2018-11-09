@@ -31,6 +31,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import campusorders.com.quebasetech.joe.campusorders.AccountSetup;
 import campusorders.com.quebasetech.joe.campusorders.CampusOrders;
 import campusorders.com.quebasetech.joe.campusorders.LoginActivity;
@@ -126,6 +129,39 @@ public class utils extends AppCompatActivity{
             }
         });
     }
+
+    public static String getElapsedTime(long orderTime) {
+        Date ordered = new Date(orderTime);
+        Date now = new Date();
+        long difference = now.getTime() - orderTime;
+        long seconds = difference/1000;
+        long minutes = seconds/60;
+        long hours = minutes/60;
+        long days = hours/24;
+        String stmt;
+        if (days != 0) {
+            stmt = days ==1 ? " day ago":" days ago";
+            return ""+ days + stmt;
+        }
+        if (hours != 0){
+            stmt = hours ==1 ? " hour ago":" hours ago";
+            return ""+ hours + stmt;
+        }
+        if (minutes != 0){
+            stmt = minutes ==1 ? " minute ago":" minutes ago";
+            return ""+ minutes + stmt;
+        }
+        if (seconds != 0){
+            stmt = seconds ==1 ? " second ago":" seconds ago";
+            return ""+ seconds + stmt;
+        }
+        if (difference <= 0){
+            return "just now";
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+        return dateFormat.format(ordered);
+    }
+
 
     public static void logout(Context context) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

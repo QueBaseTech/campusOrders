@@ -45,6 +45,7 @@ import campusorders.com.quebasetech.joe.campusorders.R;
 import campusorders.com.quebasetech.joe.campusorders.adapters.OrderAdapter;
 import campusorders.com.quebasetech.joe.campusorders.model.Gig;
 import campusorders.com.quebasetech.joe.campusorders.model.Order;
+import campusorders.com.quebasetech.joe.campusorders.model.Reason;
 import campusorders.com.quebasetech.joe.campusorders.model.User;
 import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
@@ -55,11 +56,9 @@ import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 public class RejectedOrders extends Fragment {
     private ListView ordersList;
     private Context context;
-    private DatabaseReference ordersRefs;
-    private DatabaseReference usersRefs;
+    private DatabaseReference ordersRefs, usersRefs, reasonsRef;
     private List<Order> orders;
-    private HashMap clients;
-    private HashMap gigs;
+    private HashMap clients, gigs, reasons;
 
 
     @Override
@@ -80,12 +79,29 @@ public class RejectedOrders extends Fragment {
         orders = new ArrayList<>();
         clients = new HashMap();
         gigs = new HashMap();
+        reasons = new HashMap();
         ordersList = (ListView) view.findViewById(R.id.orders);
         final TextView notice = (TextView) view.findViewById(R.id.no_rejected_orders);
         final ProgressBar loading = (ProgressBar) view.findViewById(R.id.loading_rejected_orders);
         DatabaseReference gigsRef = FirebaseDatabase.getInstance().getReference("gigs");
         ordersRefs = FirebaseDatabase.getInstance().getReference("orders");
         usersRefs = FirebaseDatabase.getInstance().getReference("users");
+        reasonsRef = FirebaseDatabase.getInstance().getReference("reasons");
+
+        reasonsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot reason: dataSnapshot.getChildren()) {
+                    Reason res = reason.getValue(Reason.class);
+                    reasons.put(res.getOrderId(), res.getReason());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         usersRefs.addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,7 +140,7 @@ public class RejectedOrders extends Fragment {
                     Order order = orderSnapshot.getValue(Order.class);
                     if(order.getStatus() == Order.orderStatus.REJECTED)
                         orders.add(order);
-                    OrderAdapter adapter = new OrderAdapter(context, orders, clients, gigs);
+                    OrderAdapter adapter = new OrderAdapter(context, orders, clients, gigs, reasons);
                     ordersList.setAdapter(adapter);
                 }
                 Collections.reverse(orders);
@@ -132,6 +148,8 @@ public class RejectedOrders extends Fragment {
                 loading.setVisibility(View.GONE);
                 if(orders.isEmpty())
                     notice.setVisibility(View.VISIBLE);
+                else
+                    notice.setVisibility(View.GONE);
             }
 
             @Override

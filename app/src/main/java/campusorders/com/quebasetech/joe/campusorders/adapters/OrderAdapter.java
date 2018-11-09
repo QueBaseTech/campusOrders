@@ -28,27 +28,28 @@ import java.util.List;
 import campusorders.com.quebasetech.joe.campusorders.R;
 import campusorders.com.quebasetech.joe.campusorders.model.Order;
 import campusorders.com.quebasetech.joe.campusorders.model.Reason;
+import campusorders.com.quebasetech.joe.campusorders.utils.utils;
 
 
 public class OrderAdapter extends ArrayAdapter<Order> {
     private  final Context context;
     private List<Order> orderList;
     private DatabaseReference ordersRef;
-    private HashMap clients;
-    private HashMap gigs;
-    private TextView itemName, location, qtyLabel, price, buyer,timeElapsed;
+    private HashMap clients, gigs, reasonsList;
+    private TextView itemName, location, qtyLabel, price, buyer,timeElapsed, reasonRejected;
     private Button reject, deliver;
     private EditText customReason;
     private RadioButton otherReason;
     private RadioGroup reasons;
     String reason = "";
 
-    public OrderAdapter(@NonNull Context context, List<Order> orders, HashMap clients, HashMap gigs) {
+    public OrderAdapter(@NonNull Context context, List<Order> orders, HashMap clients, HashMap gigs, HashMap reasonsList) {
         super(context, R.layout.orders_list, orders);
         this.context = context;
         this.orderList = orders;
         this.clients = clients;
         this.gigs = gigs;
+        this.reasonsList = reasonsList;
     }
 
     @Override
@@ -62,6 +63,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         price = (TextView) view.findViewById(R.id.order_value);
         buyer = (TextView) view.findViewById(R.id.buyer_name);
         timeElapsed = (TextView) view.findViewById(R.id.timeElapsed);
+        reasonRejected = (TextView) view.findViewById(R.id.rejected_reaons);
         reject = (Button) view.findViewById(R.id.rejectOrderBtn);
         deliver = (Button) view.findViewById(R.id.deliverOrderBtn);
         ordersRef = FirebaseDatabase.getInstance().getReference("orders");
@@ -72,7 +74,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         qtyLabel.setText(""+order.getQty());
         price.setText(""+order.getTotal());
         buyer.setText(clients.get(order.getClient()).toString());
-        timeElapsed.setText(getElapsedTime(order.getOrderTime()));
+        timeElapsed.setText(utils.getElapsedTime(order.getOrderTime()));
 
         // Show reject
         if(order.getStatus() == Order.orderStatus.NEW){
@@ -92,6 +94,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         } else {
             reject.setVisibility(View.GONE);
             deliver.setVisibility(View.GONE);
+            reasonRejected.setVisibility(View.GONE);
         }
 
         // Handle will deliver button
@@ -114,6 +117,11 @@ public class OrderAdapter extends ArrayAdapter<Order> {
             });
         }
 
+        if(order.getStatus() == Order.orderStatus.REJECTED || order.getStatus() == Order.orderStatus.CANCELLED) {
+            reasonRejected.setVisibility(View.VISIBLE);
+            reasonRejected.setText(""+reasonsList.get(order.getId().toString()));
+        }
+
         // Change reject button to delete button
 
         return view;
@@ -133,38 +141,6 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         });
         if(status == Order.orderStatus.FULFILLED)
             ordersRef.child(order.getId()).child("deliveryTime").setValue(new Date().getTime());
-    }
-
-    private String getElapsedTime(long orderTime) {
-        Date ordered = new Date(orderTime);
-        Date now = new Date();
-        long difference = now.getTime() - orderTime;
-        long seconds = difference/1000;
-        long minutes = seconds/60;
-        long hours = minutes/60;
-        long days = hours/24;
-        String stmt;
-        if (days != 0) {
-            stmt = days ==1 ? " day ago":" days ago";
-            return ""+ days + stmt;
-        }
-        if (hours != 0){
-            stmt = hours ==1 ? " hour ago":" hours ago";
-            return ""+ hours + stmt;
-        }
-        if (minutes != 0){
-            stmt = minutes ==1 ? " minute ago":" minutes ago";
-            return ""+ minutes + stmt;
-        }
-        if (seconds != 0){
-            stmt = seconds ==1 ? " second ago":" seconds ago";
-            return ""+ seconds + stmt;
-        }
-        if (difference <= 0){
-            return "just now";
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-        return dateFormat.format(ordered);
     }
 
     private void rejectOrder(final Order order) {

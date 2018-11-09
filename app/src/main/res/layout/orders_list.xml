@@ -156,5 +156,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rejectOrderBtn" />
 
+        <TextView
+            android:id="@+id/rejected_reaons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Reason"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timeElapsed" />
+
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>
