@@ -19,6 +19,7 @@
     <string name="price_ksh">Price: Ksh.</string>
     <string name="order">ORDER</string>
 
+    <string name="invitationMessage">"Share app with friends"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="stats">Stats</string>

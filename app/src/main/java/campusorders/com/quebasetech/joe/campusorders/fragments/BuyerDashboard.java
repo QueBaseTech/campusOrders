@@ -101,7 +101,8 @@ public class BuyerDashboard extends Fragment implements SearchView.OnQueryTextLi
     @Override
     public boolean onQueryTextChange(String newText) {
         String text = newText;
-        adapter.getFilter().filter(text);
+        if(adapter != null)
+            adapter.getFilter().filter(text);
         return false;
     }
 }
